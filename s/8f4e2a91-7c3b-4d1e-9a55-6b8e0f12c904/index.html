@@ -128,64 +128,63 @@
     <button class="nav-tab" data-tab="deploy" onclick="switchBenchmarkTab('deploy', this)">🚀 8. Приватный GitHub + Секретный Деплой</button>
   </div>
 
-  <!-- TAB 0: B2B/B2C AUTO PARTS INTELLIGENT SELECTOR & 5-EPOCH RSI PLANNER -->
+  <!-- TAB 0: B2B/B2C AUTO PARTS CATALOG (ELCATS.RU SCHEMATICS + EXIST/AUTODOC CROSS-MATRIX) -->
   <div id="tab-autoparts" class="tab-pane">
-    <div class="card" style="margin-bottom:10px; border-color:#0284c7;">
-      <div id="ap-epoch-banner" style="margin-bottom:8px;"></div>
-      <div class="toolbar">
-        <span style="font-size:11.5px; font-weight:700; color:#38bdf8;">📈 ПЕРЕКЛЮЧАТЕЛЬ ЭПОХ ПЛАНИРОВЩИКА RSI:</span>
-        <button class="btn" onclick="AutoPartsSim.setEpoch(1)">Эпоха 1: VIN + PR-Код (48.3%)</button>
-        <button class="btn" onclick="AutoPartsSim.setEpoch(2)">Эпоха 2: +OES Конвейер (70.5%)</button>
-        <button class="btn" onclick="AutoPartsSim.setEpoch(3)">Эпоха 3: +Взрыв-Схема CAD (85.3%)</button>
-        <button class="btn" onclick="AutoPartsSim.setEpoch(4)">Эпоха 4: +Склады SLA и Маржа СТО (93.5%)</button>
-        <button class="btn btn-ok" onclick="AutoPartsSim.setEpoch(5)">🏆 Эпоха 5: +ИИ-Диагностика и Заказ-Наряд (99.2%)</button>
+    <div class="card" style="margin-bottom:8px; padding:8px 10px; border-color:#0284c7;">
+      <div id="ap-epoch-banner" style="margin-bottom:6px;"></div>
+      <div class="toolbar" style="margin-bottom:4px;">
+        <span style="font-size:11px; font-weight:800; color:#38bdf8;">🔎 ПОИСК ПО АРТИКУЛУ / VIN / НАЗВАНИЮ (КАК НА AUTODOC / EXIST):</span>
+        <input id="ap-oem-search" type="text" placeholder="Введите OEM или артикул (напр. 5Q0 615 301 F, CT1167K1, 317 578, помпа)..."
+          style="flex:1; min-width:210px; padding:5px 9px; border-radius:6px; border:1px solid #38bdf8; background:#020617; color:#f8fafc; font-size:11.5px;"
+          oninput="AutoPartsSim.searchByQuery(this.value)" />
+        <button class="btn" onclick="AutoPartsSim.searchByQuery('5Q0 615 301 F')">Диск 5Q0615301F</button>
+        <button class="btn" onclick="AutoPartsSim.searchByQuery('04E 121 600 CS')">Помпа 04E121600CS</button>
+        <button class="btn" onclick="AutoPartsSim.searchByQuery('5QF 413 031 A')">Стойка 5QF413031A</button>
+        <button id="btn-ap-b2b" class="btn btn-ok" onclick="AutoPartsSim.toggleB2BClientMode()">🏢 Режим СТО: Опт Закупка</button>
+      </div>
+      <div class="toolbar" style="margin-bottom:0;">
+        <span style="font-size:11px; font-weight:700; color:#fde047;">📐 КАТАЛОГ УЗЛОВ АВТО ELCATS.RU:</span>
+        <button class="btn btn-accent" onclick="AutoPartsSim.selectGroup('brakes_615')">🛑 Группа 6: Тормоза (Илл. 615-050)</button>
+        <button class="btn btn-accent" onclick="AutoPartsSim.selectGroup('engine_109')">⚙️ Группа 1: ДВС и ГРМ (Илл. 109-020)</button>
+        <button class="btn btn-accent" onclick="AutoPartsSim.selectGroup('susp_407')">🛞 Группа 4: Подвеска (Илл. 407-010)</button>
+        <span style="font-size:11px; color:#94a3b8; margin-left:4px;">| 🩺 Симптомы ИИ:</span>
+        <button class="btn btn-stage" onclick="AutoPartsSim.diagnoseSymptom('brakes_vibration')">🔊 Биение при торможении</button>
+        <button class="btn btn-stage" onclick="AutoPartsSim.diagnoseSymptom('timing_overheat')">⏱️ ТО ГРМ + Помпа</button>
+        <button class="btn btn-stage" onclick="AutoPartsSim.diagnoseSymptom('suspension_knock')">🛞 Стук подвески</button>
       </div>
     </div>
 
-    <div class="grid-2">
-      <div class="card">
-        <div class="toolbar">
-          <span style="font-size:11.5px; font-weight:700; color:#fde047;">🚘 АВТОМОБИЛЬ ПО VIN:</span>
-          <button class="btn btn-stage" onclick="AutoPartsSim.selectVehicle('tiguan')">VW Tiguan II 1.4 TSI (PR-1ZA)</button>
-          <button class="btn btn-stage" onclick="AutoPartsSim.selectVehicle('camry')">Toyota Camry XV70 2.5</button>
-          <button class="btn btn-stage" onclick="AutoPartsSim.selectVehicle('bmw_g30')">BMW 5 G30 (M-Sport S2NHA)</button>
-          <button id="btn-ap-b2b" class="btn btn-ok" onclick="AutoPartsSim.toggleB2BClientMode()">🏢 Режим СТО: Оптовая Закупка</button>
-        </div>
+    <div id="ap-vehicle-info" style="padding:6px 10px; background:#0f172a; border:1px solid #334155; border-radius:8px; margin-bottom:8px;"></div>
 
-        <div class="toolbar" style="background:#020617; padding:7px 10px; border-radius:8px; border:1px solid #334155;">
-          <span style="font-size:11.5px; font-weight:700; color:#4ade80;">🩺 ИИ-ПОДБОР ПО СИМПТОМАМ (Идея Эпохи 5):</span>
-          <button class="btn btn-accent" onclick="AutoPartsSim.diagnoseSymptom('brakes_vibration')">🔊 «Биение руля и скрип при торможении со 110 км/ч»</button>
-          <button class="btn btn-err" onclick="AutoPartsSim.diagnoseSymptom('timing_overheat')">⏱️ «ТО 60 000 км: свист ГРМ на холодную + уход антифриза»</button>
-        </div>
-
-        <div id="ap-vehicle-info" style="padding:8px 10px; background:#020617; border:1px solid #1e293b; border-radius:8px; margin-bottom:8px;"></div>
-
-        <canvas id="cv-autoparts" tabindex="0" width="760" height="275"></canvas>
-
-        <div class="toolbar" style="margin-top:8px;">
-          <span style="font-size:11px; color:#94a3b8;">Узлы на чертеже:</span>
-          <button class="btn" onclick="AutoPartsSim.selectNode('01')">[01] Тормозной диск Ø312</button>
-          <button class="btn" onclick="AutoPartsSim.selectNode('02')">[02] Колодки Ceramic</button>
-          <button class="btn" onclick="AutoPartsSim.selectNode('03')">[03] Датчик износа</button>
-          <button class="btn" onclick="AutoPartsSim.selectNode('04')">[04] Пальцы суппорта</button>
-          <button class="btn" onclick="AutoPartsSim.selectNode('05')">[05] Комплект ГРМ</button>
-          <button class="btn" onclick="AutoPartsSim.selectNode('06')">[06] Водяная помпа + 2 термостата</button>
-        </div>
-
-        <div id="ap-cross-table" style="margin-top:8px;"></div>
+    <!-- ELCATS.RU 2-PANE SPLIT VIEW: LEFT = INTERACTIVE NODE SCHEMATIC [1]..[8], RIGHT = ELCATS CALLOUT TABLE -->
+    <div class="grid-2" style="grid-template-columns: 1.25fr 1fr; margin-bottom:8px;">
+      <div class="card" style="padding:8px;">
+        <canvas id="cv-autoparts" tabindex="0" width="720" height="270"></canvas>
       </div>
+      <div class="card" style="padding:8px;">
+        <div id="ap-elcats-callouts"></div>
+      </div>
+    </div>
 
-      <div class="card">
-        <div id="ap-work-order" style="background:#020617; border:1px solid #22c55e; border-radius:10px; padding:10px; margin-bottom:10px;"></div>
-
-        <h3 style="margin:0 0 6px; font-size:14.5px; color:#38bdf8;">🧠 Как Планировщик RSI находит боли рынка и генерирует идеи в новых эпохах</h3>
-        <ul class="crit-list">
-          <li><b>Эпоха 1 (Боль: 78% возвратов из-за модификаций):</b> планировщик обнаружил, что подбор «по году и марке» ошибается на машинах с разными тормозными суппортами (<code>PR-1ZA Ø312мм</code> против <code>PR-1ZE Ø288мм</code>). Добавлен жесткий замок по 17-значному VIN.</li>
-          <li><b>Эпоха 2 (Боль: Оригинал дорог, а дубликаты страшно брать):</b> планировщик разделил кроссы на 4 тира и ввел <b>«🏭 OES Поставщик Конвейера»</b> (та же деталь с завода <code>Zimmermann / ATE / INA</code> на <b>44% дешевле</b> коробки дилера!) + индекс риска подделки.</li>
-          <li><b>Эпоха 3 (Боль: Забытая мелочевка блокирует подъемник СТО):</b> механик меняет диски, но забыл датчик износа <code>[03]</code> или при замене ГРМ <code>[05]</code> не заказал помпу <code>[06]</code>. Добавлены <b>интерактивная взрыв-схема CAD</b> и <b>AI-комплектатор (-8% на узел в сборе)</b>.</li>
-          <li><b>Эпоха 4 (Боль B2B: Срывы сроков поставки и показ экрана клиенту):</b> добавлены матрица складов с <b>SLA %</b> и кнопка <b>«Режим СТО: Опт / Розница Клиента +28%»</b> (скрывает закупку и считает чистую прибыль автосервиса).</li>
-          <li><b>Эпоха 5 (Прорывная идея: От симптома клиента сразу к Заказ-Наряду с нормо-часами):</b> мастер или клиент нажимает симптом ➔ ИИ сам выделяет узлы на схеме, подбирает OES-комплект и считает нормо-часы работ СТО!</li>
-        </ul>
+    <!-- EXIST.RU / AUTODOC.RU PRICE & ANALOG MATRIX + SERVICE WORK-ORDER -->
+    <div class="grid-2" style="grid-template-columns: 1.35fr 1fr;">
+      <div class="card" style="padding:10px;">
+        <div id="ap-cross-table"></div>
+      </div>
+      <div class="card" style="padding:10px;">
+        <div id="ap-work-order" style="background:#020617; border:1px solid #22c55e; border-radius:8px; padding:9px; margin-bottom:8px;"></div>
+        <div class="toolbar" style="margin-bottom:6px;">
+          <span style="font-size:11px; font-weight:700; color:#38bdf8;">Эволюция Эпох RSI:</span>
+          <button class="btn" style="padding:3px 7px;" onclick="AutoPartsSim.setEpoch(1)">E1 (57.7%)</button>
+          <button class="btn" style="padding:3px 7px;" onclick="AutoPartsSim.setEpoch(2)">E2 Elcats (77%)</button>
+          <button class="btn" style="padding:3px 7px;" onclick="AutoPartsSim.setEpoch(3)">E3 Exist/Autodoc (88.3%)</button>
+          <button class="btn" style="padding:3px 7px;" onclick="AutoPartsSim.setEpoch(4)">E4 Склады SLA (94.8%)</button>
+          <button class="btn btn-ok" style="padding:3px 7px;" onclick="AutoPartsSim.setEpoch(5)">🏆 E5 Чемпион (99.5%)</button>
+        </div>
+        <div style="font-size:11.5px; color:#cbd5e1; line-height:1.45;">
+          <b style="color:#fde047;">🔍 Почему RSI сначала упустил Elcats/Exist и как это исправлено навсегда:</b><br/>
+          Без <b>Нулевой фазы разведки отраслевых доноров (<code>Phase E0: DonorAnatomyPassport</code>)</b> LLM-планировщик выдумывал абстрактный стартап «из головы», пропуская де-факто стандарт отрасли: <b>1) Силуэт зон автомобиля ➔ 2) Двухоконная схема узла <code>Elcats.ru</code> (чертеж с выносками <code>[1]..[8]</code> слева ⇄ таблица всех позиций узла справа) ➔ 3) Матрица проценки <code>Exist.ru / Autodoc.ru</code> (Запрошенный OEM + Официальные замены + Аналоги OES/Aftermarket со складами <code>Склад НАС / Дилер ЦС</code>)</b>. Теперь <code>Phase E0</code> зашита в ядро <code>universal_domain_planner.py</code>!
+        </div>
       </div>
     </div>
   </div>
@@ -5325,14 +5324,17 @@ const TanksSim = (() => {
 
 
 // ============================================================================
-// MODULE 06: B2B/B2C AUTO PARTS INTELLIGENT SELECTOR & RSI EPOCH PLANNER (v6)
-// Demonstrates how the Universal RSI Planner evolves a Business / E-Commerce /
-// Service Station ERP system across 5 strictly monotonic epochs (E1 -> E5):
-// - E1: 17-Char VIN Decoder + Vehicle Modification & PR-Code Fitment Lock
-// - E2: 4-Tier TecDoc Cross-Reference Matrix (OEM / OES Conveyor / Aftermarket / Budget) + Counterfeit Risk %
-// - E3: Interactive CAD Exploded Node Blueprint (Clickable Hotspots [01]..[06]) + Smart Companion Kit Builder
-// - E4: Multi-Warehouse Delivery SLA % Matrix + B2B Wholesale vs Client Retail Margin Mode
-// - E5: AI Symptom-to-Part Diagnostics + Automated Service Station Work-Order (Заказ-Наряд с Нормо-Часами)
+// MODULE 06: B2B/B2C AUTO PARTS CATALOG (ELCATS.RU SCHEMATICS + EXIST/AUTODOC CROSS-MATRIX)
+// Upgraded with Phase E0 Donor Anatomy Lock:
+// 1. Interactive Vehicle Zone Silhouette (Кузов / Шасси: Тормоза, ДВС и ГРМ, Подвеска)
+// 2. Authentic Elcats.ru 2-Pane Split View:
+//    - Left: Technical Exploded Node Diagram with Callout Leader Lines & Clickable Numbers [1]..[8]
+//    - Right: Synchronized Elcats Callout Table (Поз. | OEM Артикул | Наименование | Кол-во | PR-код | «Цены и аналоги»)
+// 3. Authentic Exist.ru / Autodoc.ru Price & Analog Replacement Matrix upon clicking any callout or OEM number:
+//    - Section A: Запрошенный артикул (Оригинал OEM)
+//    - Section B: Официальные замены производителя (Новые ревизии OEM)
+//    - Section C: Искомые аналоги (заменители) — OES Конвейер (-44%), Aftermarket Премиум, Бюджет
+//      with Autodoc supplier direction codes (Дилер ЦС, Склад НАС, Опт), SLA %, dimensions, and Work-Order ERP!
 // ============================================================================
 
 const AutoPartsSim = (() => {
@@ -5341,485 +5343,781 @@ const AutoPartsSim = (() => {
       id: 'tiguan',
       vin: 'XW8ZZZ5NZJG214891',
       title: 'VW Tiguan II (AD1) 1.4 TSI 150 л.с.',
-      engine: 'CZDA (1395 см³, Turbo)',
+      engine: 'CZDA (1.4 TSI Turbo)',
       trans: 'DQ250 (DSG-6)',
       year: 2019,
-      prCode: 'PR-1ZA (Передние диски Ø312x25 мм вентилируемые)',
-      fitmentNote: 'Внимание: на эту же модель ставились диски Ø288мм (PR-1ZE). По VIN XW8ZZZ5NZJG214891 строго Ø312мм!'
+      prCode: 'PR-1ZA (Диски Ø312x25) / Подвеска PR-G02',
+      fitmentNote: 'По VIN XW8ZZZ5NZJG214891 отсечены несовместимые диски Ø288мм (PR-1ZE) и Ø340мм (PR-1LA).'
     },
     {
       id: 'camry',
       vin: 'JTNB11HK503049182',
       title: 'Toyota Camry VIII (XV70) 2.5 181 л.с.',
       engine: '2AR-FE / A25A-FKS',
-      trans: 'U760E (АКПП-6/8)',
+      trans: 'U760E (АКПП)',
       year: 2020,
-      prCode: 'Сборка РФ/Япония (Суппорт Advics Ø305x28 мм)',
-      fitmentNote: 'По VIN подтверждена тормозная система Advics (колодки с антискрипными пластинами в комплекте).'
+      prCode: 'Тормоза Advics Ø305x28 / Сборка Шушары-Япония',
+      fitmentNote: 'По VIN зафиксирована тормозная система Advics и передние стойки TNGA.'
     },
     {
       id: 'bmw_g30',
       vin: 'WBA5A51070G194022',
-      title: 'BMW 5 Series (G30) 520i / 530i xDrive',
-      engine: 'B48B20 (2.0 TwinPower Turbo)',
+      title: 'BMW 5 Series (G30) 530i xDrive',
+      engine: 'B48B20 (2.0 TwinPower)',
       trans: 'ZF 8HP50',
       year: 2021,
-      prCode: 'Опция S2NHA (Тормоза M-Sport синие Ø348x36 мм)',
-      fitmentNote: 'Двухсоставной облегченный диск с алюминиевой ступицей (строго левый/правый направленный!).'
+      prCode: 'Опция S2NHA (Тормоза M-Sport Ø348x36 мм)',
+      fitmentNote: 'Двухсоставные направленные диски M-Sport с алюминиевой ступицей.'
     }
   ];
 
-  // Interactive Exploded Assembly Nodes ([01]..[06]) for CAD Blueprint + Cross-Reference Matrix
-  const NODES_DB = [
-    {
-      pos: '01',
-      name: 'Диск тормозной передний вентилируемый (Ø312x25 мм)',
-      system: 'Тормозная система',
-      cx: 155, cy: 165,
-      oem: '5Q0 615 301 F',
-      laborHours: 1.2,
-      laborTitle: 'Замена передних тормозных дисков (ось) с чисткой ступицы',
-      companions: ['02', '03', '04'],
-      companionReason: 'При замене тормозных дисков [01] технический регламент требует установки новых колодок [02], датчика износа [03] и новых крепежных винтов/направляющих [04].',
-      crosses: [
+  // 3 Complete Elcats.ru Assemblies (Groups):
+  // 1) brakes_615: Тормозная система (Передний тормозной механизм, диск, суппорт, ступица — Илл. 615-050)
+  // 2) engine_109: Двигатель и ГРМ (Привод ГРМ, ролики, модуль водяной помпы с 2 термостатами — Илл. 109-020)
+  // 3) susp_407: Передняя подвеска (Стойка McPherson, пружина, опора, рычаг, шаровая, стабилизатор — Илл. 407-010)
+  const ELCATS_CATALOG = {
+    brakes_615: {
+      id: 'brakes_615',
+      groupCode: 'Группа 6 / Илл. 615-050',
+      shortTitle: '🛑 Тормоза (Диск, Суппорт, Колодки)',
+      fullTitle: 'Elcats Илл. 615-050: Передний вентилируемый тормозной диск, суппорт, колодки и ступица',
+      carZoneX: 112,
+      carZoneY: 62,
+      companionKitNote: 'По регламенту СТО при замене дисков [1] обязательно заказывают крепежные винты [2], колодки [3], датчик износа [4] и направляющие суппорта [6].',
+      companionPositions: ['1', '2', '3', '4', '6'],
+      parts: [
         {
-          tier: 'OEM (Оригинал)',
-          badgeCol: '#0284c7',
-          brand: 'VAG Original',
-          partNo: '5Q0615301F',
-          note: 'Оригинальная деталь дилерской сети',
-          counterfeitRisk: '4% (Проверка голограммы)',
-          warehouses: [
-            { wh: 'ЦС Дилер Москва', sla: '99.4%', delivery: '4 часа', stock: 14, priceWholesale: 13400 }
+          pos: '1',
+          oem: '5Q0 615 301 F',
+          revisionOem: '5Q0 615 301 G',
+          name: 'Диск тормозной передний вентилируемый',
+          qty: '2 шт.',
+          pr: 'PR-1ZA',
+          specs: 'Ø312 мм | Толщ. 25 мм | Выс. 50 мм | 5x112 | Вентилируемый',
+          cx: 138, cy: 192, tx: 195, ty: 185,
+          laborHours: 1.2,
+          crosses: [
+            { section: '🔷 Запрошенный артикул (Оригинал OEM)', tierBadge: 'OEM Оригинал', col: '#0284c7', brand: 'VAG Original', partNo: '5Q0 615 301 F', dir: 'Дилер ЦС (DLR)', sla: '99.4%', stock: '14 шт.', delivery: '4 часа', risk: '3% (Голограмма VAG)', priceWh: 13400, specsNote: 'Оригинал дилерской сети, высокоуглеродистый чугун' },
+            { section: '🔄 Официальная замена производителя', tierBadge: 'Новая ревизия OEM', col: '#0369a1', brand: 'VAG Economy / Новая ревизия', partNo: '5Q0 615 301 G', dir: 'ЦС Москва (VAG)', sla: '98.9%', stock: '8 шт.', delivery: '1 день', risk: '2%', priceWh: 11900, specsNote: 'Официальная замена артикула с 2021 года' },
+            { section: '🟢 Искомые аналоги (Поставщик конвейера OES)', tierBadge: '🏭 OES Конвейер (-44%)', col: '#16a34a', brand: 'Otto Zimmermann (Германия)', partNo: '100.3300.20', dir: 'Склад НАС (Autodoc)', sla: '99.8%', stock: '32 шт.', delivery: '2 часа', risk: '0.9% (Лазерный код)', priceWh: 7450, specsNote: 'Антикоррозийное покрытие Coat Z, 100% геометрия OEM' },
+            { section: '🟢 Искомые аналоги (Aftermarket Премиум)', tierBadge: '✅ Aftermarket Премиум', col: '#2563eb', brand: 'TRW / Lucas', partNo: 'DF4464S', dir: 'Склад Exist Экспресс', sla: '99.1%', stock: '19 шт.', delivery: '3 часа', risk: '1.8%', priceWh: 6150, specsNote: 'Окрашенная ступица, крепежный винт в коробке' },
+            { section: '🟢 Искомые аналоги (Бюджет)', tierBadge: '⚠️ Эконом Аналог', col: '#d97706', brand: 'Sangsin / Miles', partNo: 'SD4018', dir: 'Опт Регион (WH4)', sla: '94.5%', stock: '45 шт.', delivery: '1 день', risk: '0.5%', priceWh: 3750, specsNote: 'Для спокойной городской эксплуатации' }
           ]
         },
         {
-          tier: '🏭 OES Конвейер (Выбор Экспертов!)',
-          badgeCol: '#16a34a',
-          brand: 'Otto Zimmermann (Германия)',
-          partNo: '100.3300.20',
-          note: 'Поставщик конвейера с антикоррозийным покрытием Coat Z (экономия 44%!)',
-          counterfeitRisk: '1.2% (Заводской лазерный код)',
-          warehouses: [
-            { wh: 'Склад Экспресс СТО', sla: '99.8%', delivery: '2 часа', stock: 28, priceWholesale: 7450 },
-            { wh: 'Региональный Хаб', sla: '96.5%', delivery: '2 дня', stock: 64, priceWholesale: 6890 }
+          pos: '2',
+          oem: 'N 106 483 01',
+          revisionOem: 'N 106 483 02',
+          name: 'Винт потайной крепления тормозного диска M6x16 (Torx T30)',
+          qty: '2 шт.',
+          pr: 'Все PR',
+          specs: 'Резьба M6x16 | Шлиц Torx T30 | Фосфатированный',
+          cx: 74, cy: 215, tx: 145, ty: 213,
+          laborHours: 0.1,
+          crosses: [
+            { section: '🔷 Запрошенный артикул (Оригинал OEM)', tierBadge: 'OEM Оригинал', col: '#0284c7', brand: 'VAG Original', partNo: 'N 106 483 01', dir: 'Склад НАС (Autodoc)', sla: '99.9%', stock: '120 шт.', delivery: '2 часа', risk: '0.1%', priceWh: 180, specsNote: 'Одноразовый фиксирующий винт ротора' },
+            { section: '🟢 Искомые аналоги (OES)', tierBadge: '🏭 OES Крепеж', col: '#16a34a', brand: 'Febi Bilstein', partNo: '38421', dir: 'Склад Exist Экспресс', sla: '99.5%', stock: '85 шт.', delivery: '2 часа', risk: '0.1%', priceWh: 95, specsNote: 'Комплект 2 винта с микрокапсулой фиксатора' }
           ]
         },
         {
-          tier: '✅ Aftermarket Премиум',
-          badgeCol: '#2563eb',
-          brand: 'TRW / Lucas',
-          partNo: 'DF4464S',
-          note: 'Высокоуглеродистый чугун, окрашенная ступица',
-          counterfeitRisk: '2.5%',
-          warehouses: [
-            { wh: 'Склад Экспресс СТО', sla: '98.9%', delivery: '3 часа', stock: 19, priceWholesale: 6150 }
+          pos: '3',
+          oem: '5Q0 698 151 AH',
+          revisionOem: '5Q0 698 151 AM',
+          name: 'Комплект тормозных колодок передних с противоскрипными пластинами',
+          qty: '1 компл.',
+          pr: 'PR-1ZA',
+          specs: 'Ширина 160.2 мм | Выс. 64.5 мм | Толщ. 20.4 мм | Система ATE',
+          cx: 295, cy: 112, tx: 290, ty: 152,
+          laborHours: 0.8,
+          crosses: [
+            { section: '🔷 Запрошенный артикул (Оригинал OEM)', tierBadge: 'OEM Оригинал', col: '#0284c7', brand: 'VAG Original', partNo: '5Q0 698 151 AH', dir: 'Дилер ЦС (DLR)', sla: '99.2%', stock: '11 шт.', delivery: '4 часа', risk: '5.5%', priceWh: 9800, specsNote: 'Заводской фрикцион Jurid/ATE в упаковке VAG' },
+            { section: '🟢 Искомые аналоги (Поставщик конвейера OES)', tierBadge: '🏭 OES Конвейер (-43%)', col: '#16a34a', brand: 'ATE Ceramic (Германия)', partNo: '13.0470-7294.2', dir: 'Склад НАС (Autodoc)', sla: '99.8%', stock: '34 шт.', delivery: '2 часа', risk: '1.0% (QR-код ATE)', priceWh: 5600, specsNote: 'Керамический состав: 0% черной пыли на дисках и 0% скрипа' },
+            { section: '🟢 Искомые аналоги (Aftermarket Премиум)', tierBadge: '✅ Aftermarket Премиум', col: '#2563eb', brand: 'Brembo Prime / Textar', partNo: 'P 85 126', dir: 'Склад Exist Экспресс', sla: '99.0%', stock: '26 шт.', delivery: '2 часа', risk: '1.9%', priceWh: 4450, specsNote: 'В комплекте датчик износа и болты суппорта' }
           ]
         },
         {
-          tier: '⚠️ Бюджетный Аналог',
-          badgeCol: '#d97706',
-          brand: 'Miles / Patron',
-          partNo: 'K001289',
-          note: 'Для спокойной городской езды (возможен нагрев при резких торможениях)',
-          counterfeitRisk: '0.8%',
-          warehouses: [
-            { wh: 'Оптовый склад', sla: '94.0%', delivery: '1 день', stock: 45, priceWholesale: 3650 }
+          pos: '4',
+          oem: '5G0 907 637',
+          revisionOem: '8V0 907 637',
+          name: 'Датчик износа тормозных колодок электронный',
+          qty: '1 шт.',
+          pr: 'PR-1ZA',
+          specs: 'Длина кабеля 195 мм | 2-контактный разъем | Термостойкий',
+          cx: 332, cy: 222, tx: 305, ty: 200,
+          laborHours: 0.2,
+          crosses: [
+            { section: '🔷 Запрошенный артикул (Оригинал OEM)', tierBadge: 'OEM Оригинал', col: '#0284c7', brand: 'VAG Original', partNo: '5G0 907 637', dir: 'Дилер ЦС', sla: '99.1%', stock: '18 шт.', delivery: '4 часа', risk: '1.0%', priceWh: 1650, specsNote: 'Оригинальный жгут датчика' },
+            { section: '🟢 Искомые аналоги (OES Конвейер)', tierBadge: '🏭 OES Конвейер', col: '#16a34a', brand: 'Brembo / ATE', partNo: 'A 00 502', dir: 'Склад НАС (Autodoc)', sla: '99.9%', stock: '54 шт.', delivery: '2 часа', risk: '0.4%', priceWh: 680, specsNote: 'Полное совпадение разъема со штатной проводкой' }
+          ]
+        },
+        {
+          pos: '5',
+          oem: '5Q0 615 123',
+          revisionOem: '5Q0 615 123 X',
+          name: 'Суппорт тормозной передний левый (Корпус с поршнем Ø57 мм)',
+          qty: '1 шт.',
+          pr: 'PR-1ZA',
+          specs: 'Поршень Ø57 мм | Чугун с оцинковкой | Система ATE',
+          cx: 455, cy: 108, tx: 420, ty: 150,
+          laborHours: 1.1,
+          crosses: [
+            { section: '🔷 Запрошенный артикул (Оригинал OEM)', tierBadge: 'OEM Оригинал', col: '#0284c7', brand: 'VAG Original', partNo: '5Q0 615 123', dir: 'ЦС Дилер', sla: '97.5%', stock: '4 шт.', delivery: '1 день', risk: '0.5%', priceWh: 24500, specsNote: 'Оригинальный суппорт в сборе' },
+            { section: '🟢 Искомые аналоги (Поставщик конвейера OES)', tierBadge: '🏭 OES Конвейер (-45%)', col: '#16a34a', brand: 'ATE (Германия)', partNo: '24.3571-1785.5', dir: 'Склад НАС (Autodoc)', sla: '99.3%', stock: '9 шт.', delivery: '3 часа', risk: '0.5%', priceWh: 13500, specsNote: 'Поставщик конвейера VAG (новый суппорт без сдачи старого)' }
+          ]
+        },
+        {
+          pos: '6',
+          oem: '8V0 698 647',
+          revisionOem: '5Q0 698 647',
+          name: 'Ремкомплект направляющих пальцев и пыльников скобы суппорта',
+          qty: '2 компл.',
+          pr: 'PR-1ZA',
+          specs: '2 пальца + 2 EPDM пыльника + высокотемпературная смазка',
+          cx: 485, cy: 222, tx: 445, ty: 195,
+          laborHours: 0.4,
+          crosses: [
+            { section: '🔷 Запрошенный артикул (Оригинал OEM)', tierBadge: 'OEM Оригинал', col: '#0284c7', brand: 'VAG Original', partNo: '8V0 698 647', dir: 'Дилер ЦС', sla: '99.4%', stock: '22 шт.', delivery: '4 часа', risk: '1.0%', priceWh: 2450, specsNote: 'Оригинальный ремкомплект на 1 суппорт' },
+            { section: '🟢 Искомые аналоги (OES Конвейер)', tierBadge: '🏭 OES Конвейер', col: '#16a34a', brand: 'TRW / Frenkit', partNo: 'ST1160', dir: 'Склад НАС (Autodoc)', sla: '99.8%', stock: '47 шт.', delivery: '2 часа', risk: '0.3%', priceWh: 1150, specsNote: 'С синтетической смазкой TRW PFG110 в пакетике' }
+          ]
+        },
+        {
+          pos: '7',
+          oem: '5Q0 615 269',
+          revisionOem: '8V0 615 269',
+          name: 'Пружина прижимная удерживающая суппорта тормозного',
+          qty: '2 шт.',
+          pr: 'PR-1ZA',
+          specs: 'Пружинная сталь с антикоррозийным покрытием',
+          cx: 590, cy: 135, tx: 535, ty: 165,
+          laborHours: 0.1,
+          crosses: [
+            { section: '🔷 Запрошенный артикул (Оригинал OEM)', tierBadge: 'OEM Оригинал', col: '#0284c7', brand: 'VAG Original', partNo: '5Q0 615 269', dir: 'Склад НАС', sla: '99.5%', stock: '31 шт.', delivery: '2 часа', risk: '0.2%', priceWh: 980, specsNote: 'Оригинальная прижимная скоба-пружина' },
+            { section: '🟢 Искомые аналоги (OES Конвейер)', tierBadge: '🏭 OES Конвейер', col: '#16a34a', brand: 'ATE', partNo: '11.8116-0071.1', dir: 'Склад Exist Экспресс', sla: '99.7%', stock: '60 шт.', delivery: '2 часа', risk: '0.2%', priceWh: 460, specsNote: 'Исключает дребезг колодок на неровностях' }
+          ]
+        },
+        {
+          pos: '8',
+          oem: '5Q0 407 621 B',
+          revisionOem: '5Q0 407 621 C',
+          name: 'Ступица переднего колеса с подшипником и кольцом ABS в сборе',
+          qty: '2 шт.',
+          pr: '5x112',
+          specs: '4 болта к кулаку | Магнитное кольцо датчика ABS | С болтами',
+          cx: 665, cy: 215, tx: 615, ty: 195,
+          laborHours: 1.5,
+          crosses: [
+            { section: '🔷 Запрошенный артикул (Оригинал OEM)', tierBadge: 'OEM Оригинал', col: '#0284c7', brand: 'VAG Original', partNo: '5Q0 407 621 B', dir: 'Дилер ЦС', sla: '98.9%', stock: '9 шт.', delivery: '4 часа', risk: '3.2%', priceWh: 16900, specsNote: 'Оригинальный ступичный узел' },
+            { section: '🟢 Искомые аналоги (Поставщик конвейера OES)', tierBadge: '🏭 OES Конвейер (-46%)', col: '#16a34a', brand: 'FAG / SKF (Германия)', partNo: '713 6109 90', dir: 'Склад НАС (Autodoc)', sla: '99.7%', stock: '24 шт.', delivery: '2 часа', risk: '0.8%', priceWh: 9150, specsNote: 'Поставщик конвейера VAG, полный комплект новых болтов' }
           ]
         }
       ]
     },
-    {
-      pos: '02',
-      name: 'Комплект передних тормозных колодок (Керамика / Low-Metallic)',
-      system: 'Тормозная система',
-      cx: 285, cy: 135,
-      oem: '5Q0 698 151 AH',
-      laborHours: 0.8,
-      laborTitle: 'Замена передних тормозных колодок с обслуживанием суппортов',
-      companions: ['03', '04'],
-      companionReason: 'Вместе с колодками [02] рекомендуется заменить датчик износа [03] и смазать/заменить направляющие пальцы суппорта [04].',
-      crosses: [
+
+    engine_109: {
+      id: 'engine_109',
+      groupCode: 'Группа 1 / Илл. 109-020',
+      shortTitle: '⚙️ Двигатель (ГРМ, Ролики, Помпа)',
+      fullTitle: 'Elcats Илл. 109-020: Зубчатый ремень ГРМ, ролики и модуль водяной помпы с 2 термостатами',
+      carZoneX: 78,
+      carZoneY: 48,
+      companionKitNote: 'При ТО 60 000–90 000 км вместе с ремнем ГРМ [1] и роликами [2],[3] обязательно проверяется и меняется модуль помпы с 2 термостатами [5] и её зубчатый ремень [6].',
+      companionPositions: ['4', '5', '6'],
+      parts: [
         {
-          tier: 'OEM (Оригинал)',
-          badgeCol: '#0284c7',
-          brand: 'VAG Original',
-          partNo: '5Q0698151AH',
-          note: 'Оригинальная смесь Jurid/Ferodo в коробке VAG',
-          counterfeitRisk: '6% (Часто подделывают на маркетплейсах)',
-          warehouses: [
-            { wh: 'ЦС Дилер Москва', sla: '99.1%', delivery: '4 часа', stock: 12, priceWholesale: 9800 }
+          pos: '1',
+          oem: '04E 109 119 F',
+          revisionOem: '04E 109 119 L',
+          name: 'Ремень зубчатый привода ГРМ (163 зуба, тефлоновое покрытие)',
+          qty: '1 шт.',
+          pr: 'CZDA/CHPA',
+          specs: 'Число зубьев: 163 | Ширина: 20 мм | Усиленный PTFE',
+          cx: 155, cy: 135, tx: 215, ty: 155,
+          laborHours: 3.2,
+          crosses: [
+            { section: '🔷 Запрошенный артикул (Оригинал OEM)', tierBadge: 'OEM Оригинал', col: '#0284c7', brand: 'VAG Original', partNo: '04E 109 119 F', dir: 'Дилер ЦС', sla: '99.1%', stock: '15 шт.', delivery: '4 часа', risk: '4.5%', priceWh: 6400, specsNote: 'Оригинальный ремень ГРМ' },
+            { section: '🟢 Искомые аналоги (Поставщик конвейера OES)', tierBadge: '🏭 OES Конвейер (-45%)', col: '#16a34a', brand: 'ContiTech (Германия)', partNo: 'CT1167', dir: 'Склад НАС (Autodoc)', sla: '99.8%', stock: '42 шт.', delivery: '2 часа', risk: '0.9%', priceWh: 3550, specsNote: 'Заводской поставщик ремней VAG' }
           ]
         },
         {
-          tier: '🏭 OES Конвейер (Выбор Экспертов!)',
-          badgeCol: '#16a34a',
-          brand: 'ATE Ceramic (Германия)',
-          partNo: '13.0470-7294.2',
-          note: 'Оригинальный поставщик тормозной системы VAG — 0% черной пыли на дисках и 0% скрипа!',
-          counterfeitRisk: '1.1% (QR-код подлинности ATE)',
-          warehouses: [
-            { wh: 'Склад Экспресс СТО', sla: '99.7%', delivery: '2 часа', stock: 34, priceWholesale: 5600 },
-            { wh: 'Опт Германия/ЦС', sla: '95.0%', delivery: '3 дня', stock: 80, priceWholesale: 5120 }
+          pos: '2',
+          oem: '04E 109 479 A',
+          revisionOem: '04E 109 479 H',
+          name: 'Ролик натяжной зубчатого ремня ГРМ автоматический',
+          qty: '1 шт.',
+          pr: 'CZDA',
+          specs: 'Наружный Ø62 мм | Ширина 24 мм | Подшипник Litens/INA',
+          cx: 135, cy: 225, tx: 205, ty: 205,
+          laborHours: 0.3,
+          crosses: [
+            { section: '🔷 Запрошенный артикул (Оригинал OEM)', tierBadge: 'OEM Оригинал', col: '#0284c7', brand: 'VAG Original', partNo: '04E 109 479 A', dir: 'Дилер ЦС', sla: '99.0%', stock: '10 шт.', delivery: '4 часа', risk: '2.0%', priceWh: 5900, specsNote: 'Оригинальный натяжитель' },
+            { section: '🟢 Искомые аналоги (OES Конвейер)', tierBadge: '🏭 OES Конвейер', col: '#16a34a', brand: 'INA / Schaeffler', partNo: '531 0891 10', dir: 'Склад НАС (Autodoc)', sla: '99.7%', stock: '28 шт.', delivery: '2 часа', risk: '0.7%', priceWh: 3250, specsNote: 'Именно этот ролик лежит в коробке оригинала VAG' }
           ]
         },
         {
-          tier: '✅ Aftermarket Премиум',
-          badgeCol: '#2563eb',
-          brand: 'Brembo Prime',
-          partNo: 'P 85 126',
-          note: 'С противоскрипными пластинами и датчиком',
-          counterfeitRisk: '2.1%',
-          warehouses: [
-            { wh: 'Склад Экспресс СТО', sla: '99.0%', delivery: '2 часа', stock: 22, priceWholesale: 4450 }
-          ]
-        }
-      ]
-    },
-    {
-      pos: '03',
-      name: 'Электронный датчик износа тормозных колодок',
-      system: 'Тормозная система',
-      cx: 345, cy: 235,
-      oem: '5G0 907 637',
-      laborHours: 0.2,
-      laborTitle: 'Подключение и сброс индикации датчика износа',
-      companions: [],
-      companionReason: 'Обязательный элемент при замене колодок [02].',
-      crosses: [
-        {
-          tier: '🏭 OES Конвейер',
-          badgeCol: '#16a34a',
-          brand: 'Brembo / ATE',
-          partNo: 'A 00 502',
-          note: 'Термостойкий кабель с заводским разъемом',
-          counterfeitRisk: '0.5%',
-          warehouses: [
-            { wh: 'Склад Экспресс СТО', sla: '99.9%', delivery: '2 часа', stock: 50, priceWholesale: 680 }
-          ]
-        }
-      ]
-    },
-    {
-      pos: '04',
-      name: 'Ремкомплект направляющих пальцев и пыльников суппорта',
-      system: 'Тормозная система',
-      cx: 410, cy: 150,
-      oem: '8V0 698 647',
-      laborHours: 0.4,
-      laborTitle: 'Переборка направляющих суппорта с высокотемпературной смазкой',
-      companions: [],
-      companionReason: 'Предотвращает заклинивание суппорта и неравномерный износ новой внутренней колодки.',
-      crosses: [
-        {
-          tier: '🏭 OES Конвейер',
-          badgeCol: '#16a34a',
-          brand: 'TRW / Frenkit',
-          partNo: 'ST1160',
-          note: 'Комплект на суппорт со смазкой PFG110',
-          counterfeitRisk: '0.4%',
-          warehouses: [
-            { wh: 'Склад Экспресс СТО', sla: '99.6%', delivery: '2 часа', stock: 41, priceWholesale: 1150 }
-          ]
-        }
-      ]
-    },
-    {
-      pos: '05',
-      name: 'Комплект ремня ГРМ с натяжным и обводным роликами (Узел ДВС)',
-      system: 'Двигатель и ГРМ',
-      cx: 560, cy: 145,
-      oem: '04E 198 119 A',
-      laborHours: 3.5,
-      laborTitle: 'Замена комплекта ГРМ с фиксацией распредвалов спец-планкой',
-      companions: ['06'],
-      companionReason: 'ВНИМАНИЕ МЕХАНИКА: На моторах TSI/TFSI при замене ГРМ [05] обязательно проверяется и меняется блок водяной помпы с двумя термостатами [06]!',
-      crosses: [
-        {
-          tier: '🏭 OES Конвейер (Выбор Экспертов!)',
-          badgeCol: '#16a34a',
-          brand: 'ContiTech / Gates (Германия)',
-          partNo: 'CT1167K1',
-          note: 'Усиленный тефлоновый ремень + ролики INA (ресурс 120 000 км)',
-          counterfeitRisk: '1.5%',
-          warehouses: [
-            { wh: 'Склад Экспресс СТО', sla: '99.5%', delivery: '2 часа', stock: 16, priceWholesale: 8900 }
+          pos: '3',
+          oem: '04E 109 244 B',
+          revisionOem: '04E 109 244 D',
+          name: 'Ролик обводной направляющий ремня ГРМ с болтом',
+          qty: '1 шт.',
+          pr: 'CZDA',
+          specs: 'Ø52 мм | С новым высокопрочным болтом M10',
+          cx: 315, cy: 118, tx: 275, ty: 145,
+          laborHours: 0.2,
+          crosses: [
+            { section: '🟢 Искомые аналоги (OES Конвейер)', tierBadge: '🏭 OES Конвейер', col: '#16a34a', brand: 'INA / Schaeffler', partNo: '532 0667 10', dir: 'Склад НАС (Autodoc)', sla: '99.9%', stock: '36 шт.', delivery: '2 часа', risk: '0.5%', priceWh: 1850, specsNote: 'Комплект с крепежным болтом' }
           ]
         },
         {
-          tier: 'OEM (Оригинал)',
-          badgeCol: '#0284c7',
-          brand: 'VAG Original',
-          partNo: '04E198119A',
-          note: 'Полный заводской ремкомплект',
-          counterfeitRisk: '5.0%',
-          warehouses: [
-            { wh: 'ЦС Дилер Москва', sla: '98.8%', delivery: '1 день', stock: 9, priceWholesale: 15800 }
+          pos: '4',
+          oem: '04E 198 119 A',
+          revisionOem: '04E 198 119 C',
+          name: 'Ремкомплект ГРМ в сборе (Ремень [1] + Натяжной [2] + Обводной [3] + Болты)',
+          qty: '1 компл.',
+          pr: 'CZDA',
+          specs: 'Полный заводской кит (экономия 22% относительно покупки вразнобой)',
+          cx: 345, cy: 238, tx: 285, ty: 205,
+          laborHours: 3.5,
+          crosses: [
+            { section: '🔷 Запрошенный артикул (Оригинал OEM)', tierBadge: 'OEM Оригинал', col: '#0284c7', brand: 'VAG Original Kit', partNo: '04E 198 119 A', dir: 'Дилер ЦС', sla: '99.1%', stock: '9 шт.', delivery: '4 часа', risk: '4.0%', priceWh: 15800, specsNote: 'Заводской бокс ГРМ VAG' },
+            { section: '🟢 Искомые аналоги (Поставщик конвейера OES)', tierBadge: '🏭 OES Конвейер (-44%)', col: '#16a34a', brand: 'ContiTech + INA (Германия)', partNo: 'CT1167K1', dir: 'Склад НАС (Autodoc)', sla: '99.8%', stock: '21 шт.', delivery: '2 часа', risk: '0.9%', priceWh: 8900, specsNote: 'Ремень ContiTech + ролики INA + одноразовые болты' }
+          ]
+        },
+        {
+          pos: '5',
+          oem: '04E 121 600 CS',
+          revisionOem: '04E 121 600 DG',
+          name: 'Насос ОЖ (Водяная помпа в сборе с корпусом и 2 термостатами 87°C/105°C)',
+          qty: '1 узел',
+          pr: 'CZDA',
+          specs: 'Алюминиевый корпус | 2 контура охлаждения (ГБЦ и Блок) | Прокладка в компл.',
+          cx: 535, cy: 145, tx: 495, ty: 175,
+          laborHours: 2.2,
+          crosses: [
+            { section: '🔷 Запрошенный артикул (Оригинал OEM)', tierBadge: 'OEM Оригинал', col: '#0284c7', brand: 'VAG Original', partNo: '04E 121 600 CS', dir: 'Дилер ЦС', sla: '99.2%', stock: '7 шт.', delivery: '4 часа', risk: '3.5%', priceWh: 21900, specsNote: 'Оригинальный термоблок с помпой' },
+            { section: '🟢 Искомые аналоги (Поставщик конвейера OES)', tierBadge: '🏭 OES Конвейер (-43%)', col: '#16a34a', brand: 'INA / Schaeffler (Германия)', partNo: '538 0360 10', dir: 'Склад НАС (Autodoc)', sla: '99.6%', stock: '14 шт.', delivery: '2 часа', risk: '0.8%', priceWh: 12400, specsNote: 'Оригинальный производитель узла для завода VAG' }
+          ]
+        },
+        {
+          pos: '6',
+          oem: '04E 121 605 E',
+          revisionOem: '04E 121 605 M',
+          name: 'Ремень зубчатый малый привода водяной помпы (от распредвала)',
+          qty: '1 шт.',
+          pr: 'CZDA',
+          specs: 'Зубьев: 59 | Ширина: 10 мм | Маслотермостойкий',
+          cx: 655, cy: 215, tx: 605, ty: 195,
+          laborHours: 0.3,
+          crosses: [
+            { section: '🟢 Искомые аналоги (OES Конвейер)', tierBadge: '🏭 OES Конвейер', col: '#16a34a', brand: 'ContiTech / Dayco', partNo: 'CT1185', dir: 'Склад НАС (Autodoc)', sla: '99.9%', stock: '48 шт.', delivery: '2 часа', risk: '0.4%', priceWh: 1180, specsNote: 'Обязателен к замене при снятии помпы [5]' }
           ]
         }
       ]
     },
-    {
-      pos: '06',
-      name: 'Насос охлаждающей жидкости (Помпа в сборе с 2 термостатами и ремнем)',
-      system: 'Двигатель и ГРМ',
-      cx: 655, cy: 215,
-      oem: '04E 121 600 CS',
-      laborHours: 2.2,
-      laborTitle: 'Замена модуля водяной помпы и вакуумная заправка антифриза G12evo',
-      companions: ['05'],
-      companionReason: 'Рекомендуется менять синхронно с комплектом ГРМ [05], чтобы не платить дважды за разборку.',
-      crosses: [
+
+    susp_407: {
+      id: 'susp_407',
+      groupCode: 'Группа 4 / Илл. 407-010',
+      shortTitle: '🛞 Подвеска (Стойка, Рычаг, Шаровая)',
+      fullTitle: 'Elcats Илл. 407-010: Передняя амортизаторная стойка McPherson, рычаг, шаровая и стабилизатор',
+      carZoneX: 118,
+      carZoneY: 50,
+      companionKitNote: 'При замене передних амортизаторов [1] обязательно меняются верхние опоры с подшипниками [2] и проверяются стойки стабилизатора [6].',
+      companionPositions: ['1', '2', '6'],
+      parts: [
         {
-          tier: '🏭 OES Конвейер (Выбор Экспертов!)',
-          badgeCol: '#16a34a',
-          brand: 'INA / Schaeffler (Германия)',
-          partNo: '538 0360 10',
-          note: 'Поставщик конвейера VAG (металлическая крыльчатка + 2 термостата 87°C/105°C)',
-          counterfeitRisk: '1.0%',
-          warehouses: [
-            { wh: 'Склад Экспресс СТО', sla: '99.4%', delivery: '2 часа', stock: 11, priceWholesale: 12400 }
+          pos: '1',
+          oem: '5QF 413 031 A',
+          revisionOem: '5QF 413 031 CN',
+          name: 'Амортизатор передний газомасляный двухтрубный (стойка McPherson)',
+          qty: '2 шт.',
+          pr: 'PR-G02',
+          specs: 'Диаметр трубы 55 мм | Ход штока 172 мм | Газомасляный',
+          cx: 155, cy: 138, tx: 215, ty: 155,
+          laborHours: 1.8,
+          crosses: [
+            { section: '🔷 Запрошенный артикул (Оригинал OEM)', tierBadge: 'OEM Оригинал', col: '#0284c7', brand: 'VAG Original', partNo: '5QF 413 031 A', dir: 'Дилер ЦС', sla: '98.8%', stock: '8 шт.', delivery: '4 часа', risk: '2.5%', priceWh: 16200, specsNote: 'Оригинальная передняя стойка' },
+            { section: '🟢 Искомые аналоги (Поставщик конвейера OES)', tierBadge: '🏭 OES Конвейер (-45%)', col: '#16a34a', brand: 'SACHS / Bilstein (Германия)', partNo: '317 578', dir: 'Склад НАС (Autodoc)', sla: '99.7%', stock: '24 шт.', delivery: '2 часа', risk: '0.8%', priceWh: 8950, specsNote: 'SACHS — штатный поставщик подвески на конвейер MQB' }
+          ]
+        },
+        {
+          pos: '2',
+          oem: '5Q0 412 331 D',
+          revisionOem: '5Q0 412 331 E',
+          name: 'Опора переднего амортизатора верхняя с опорным подшипником в сборе',
+          qty: '2 компл.',
+          pr: 'PR-G02',
+          specs: 'Литой алюминиевый корпус + упорный радиальный подшипник Rollax',
+          cx: 215, cy: 92, tx: 225, ty: 112,
+          laborHours: 0.3,
+          crosses: [
+            { section: '🟢 Искомые аналоги (Поставщик конвейера OES)', tierBadge: '🏭 OES Конвейер', col: '#16a34a', brand: 'Lemförder / SACHS', partNo: '37582 01', dir: 'Склад НАС (Autodoc)', sla: '99.8%', stock: '38 шт.', delivery: '2 часа', risk: '0.6%', priceWh: 2950, specsNote: 'Опора + опорный подшипник FAG в одной коробке' }
+          ]
+        },
+        {
+          pos: '3',
+          oem: '5Q0 411 105 H',
+          revisionOem: '5Q0 411 105 J',
+          name: 'Пружина ходовой части передняя винтовая (Цветовая метка: 2 синие / 1 оранж.)',
+          qty: '2 шт.',
+          pr: 'PR-L07',
+          specs: 'Длина 342 мм | Пруток Ø13.25 мм | 5.4 витка',
+          cx: 305, cy: 165, tx: 245, ty: 165,
+          laborHours: 0.4,
+          crosses: [
+            { section: '🟢 Искомые аналоги (OES Конвейер)', tierBadge: '🏭 OES Конвейер', col: '#16a34a', brand: 'Lesjöfors / Eibach', partNo: '4095108', dir: 'Склад Exist Экспресс', sla: '99.2%', stock: '16 шт.', delivery: '3 часа', risk: '0.4%', priceWh: 4650, specsNote: 'Шведская пружинная сталь холодной навивки' }
+          ]
+        },
+        {
+          pos: '4',
+          oem: '5Q0 407 151 M',
+          revisionOem: '5Q0 407 151 R',
+          name: 'Рычаг передней подвески нижний треугольный с сайлентблоками в сборе',
+          qty: '2 шт.',
+          pr: 'MQB',
+          specs: 'Штампованная сталь | С передним и задним усиленным сайлентблоком',
+          cx: 455, cy: 232, tx: 425, ty: 208,
+          laborHours: 1.3,
+          crosses: [
+            { section: '🟢 Искомые аналоги (Поставщик конвейера OES)', tierBadge: '🏭 OES Конвейер (-42%)', col: '#16a34a', brand: 'Lemförder (Германия)', partNo: '38397 01', dir: 'Склад НАС (Autodoc)', sla: '99.6%', stock: '18 шт.', delivery: '2 часа', risk: '0.7%', priceWh: 6850, specsNote: 'Заводской рычаг со спиленным логотипом VAG' }
+          ]
+        },
+        {
+          pos: '5',
+          oem: '5Q0 407 365 A',
+          revisionOem: '5Q0 407 365 B',
+          name: 'Опора шаровая переднего нижнего рычага с крепежными гайками M10',
+          qty: '2 шт.',
+          pr: 'MQB',
+          specs: 'Конус 18 мм | 3 шпильки крепления к рычагу',
+          cx: 565, cy: 242, tx: 515, ty: 215,
+          laborHours: 0.7,
+          crosses: [
+            { section: '🟢 Искомые аналоги (OES Конвейер)', tierBadge: '🏭 OES Конвейер', col: '#16a34a', brand: 'TRW / Lemförder', partNo: 'JBJ1154', dir: 'Склад НАС (Autodoc)', sla: '99.9%', stock: '44 шт.', delivery: '2 часа', risk: '0.5%', priceWh: 2150, specsNote: 'Комплект с 3 самоконтрящимися гайками' }
+          ]
+        },
+        {
+          pos: '6',
+          oem: '5Q0 411 315 A',
+          revisionOem: '5Q0 411 315 B',
+          name: 'Тяга (стойка) стабилизатора переднего поперечной устойчивости',
+          qty: '2 шт.',
+          pr: 'MQB',
+          specs: 'Длина 335 мм | Шарниры M12x1.5 | С гайками',
+          cx: 655, cy: 145, tx: 605, ty: 165,
+          laborHours: 0.5,
+          crosses: [
+            { section: '🟢 Искомые аналоги (Поставщик конвейера OES)', tierBadge: '🏭 OES Конвейер', col: '#16a34a', brand: 'Lemförder (Германия)', partNo: '36959 01', dir: 'Склад НАС (Autodoc)', sla: '99.9%', stock: '65 шт.', delivery: '2 часа', risk: '0.5%', priceWh: 1890, specsNote: 'Ресурс 80 000+ км, усиленный пыльник' }
           ]
         }
       ]
     }
-  ];
+  };
 
-  // Epoch Evolution Metadata so user can click Epochs 1..5 and see how the RSI Planner grew!
   const EPOCH_SPECS = {
     1: {
-      title: 'Эпоха 1 (E1): Базовый поиск по VIN/OEM и выявление боли №1 (Несовместимость модификаций)',
-      score: 48.3,
-      axes: { pain: 45, data: 40, ideas: 35, ux: 50, biz: 30, arch: 90 },
-      idea: 'Планировщик выявил: 78% возвратов запчастей происходят из-за разных PR-кодов тормозов на одном и том же годе выпуска. Внедрена жесткая фиксация модификации по 17-значному VIN.'
+      title: 'Эпоха 1 (E1): Базис Доноров (E0) + Схема Зон Автомобиля + Замок PR-кодов по VIN',
+      score: 57.7,
+      idea: 'Внедрена фаза E0 (Разведка эталонов Elcats.ru + Exist.ru + Autodoc.ru): интерактивный силуэт зон автомобиля (Тормоза, ДВС и ГРМ, Подвеска) и поиск по VIN/OEM с отсечкой несовместимых PR-кодов.'
     },
     2: {
-      title: 'Эпоха 2 (E2): +Идея Планировщика: 4-уровневая Кросс-Матрица OES Конвейера и Риск Подделки %',
-      score: 70.5,
-      axes: { pain: 68, data: 70, ideas: 65, ux: 68, biz: 60, arch: 92 },
-      idea: 'Аудит E1 показал: оригинал OEM дорог, а среди дубликатов клиент боится подделок. Планировщик добавил выделение OES-поставщика конвейера (та же деталь на 44% дешевле!) и индекс риска контрафакта.'
+      title: 'Эпоха 2 (E2): Двухоконный Интерактивный Каталог Elcats.ru (Чертеж Узла с Выносками [1]..[8] ⇄ Таблица Позиций)',
+      score: 77.0,
+      idea: 'Полное воспроизведение стандарта Elcats.ru: слева технический чертеж узла в разборе с выносными линиями [1]..[8], справа синхронная таблица всех деталей этого чертежа с OEM-артикулами!'
     },
     3: {
-      title: 'Эпоха 3 (E3): +Идея Планировщика: Интерактивная Взрыв-Схема Узла (CAD) + AI-Комплектатор Забытых Деталей',
-      score: 85.3,
-      axes: { pain: 84, data: 85, ideas: 86, ux: 85, biz: 78, arch: 94 },
-      idea: 'Аудит E2 показал: механики забывают заказать датчик износа, болты суппорта или помпу при замене ГРМ. Добавлен интерактивный чертеж с хотспотами [01]..[06] и авто-допродажа сопутствующих деталей (+38% к среднему чеку!).'
+      title: 'Эпоха 3 (E3): Матрица Проценки и Аналогов как на Exist.ru / Autodoc.ru (Запрошенный OEM + Замены + Аналоги OES -44%)',
+      score: 88.3,
+      idea: 'Клик по любому номеру на схеме Elcats ИЛИ в таблице справа мгновенно открывает проценку Exist/Autodoc: 1) Запрошенный OEM, 2) Официальные замены, 3) Аналоги OES Конвейера с размерами в мм и защитой от подделки.'
     },
     4: {
-      title: 'Эпоха 4 (E4): +Идея Планировщика: Матрица Складов Поставщиков (SLA %) и Режим Наценки B2B Автосервиса',
-      score: 93.5,
-      axes: { pain: 93, data: 94, ideas: 94, ux: 92, biz: 93, arch: 95 },
-      idea: 'Аудит E3 со стороны бизнеса СТО: нужен выбор между экспресс-складом (2 часа, 99.8% без отказа) и оптом, плюс кнопка скрытия закупочных цен при показе экрана клиенту с расчетом маржи СТО.'
+      title: 'Эпоха 4 (E4): Направления Поставщиков Autodoc (Склад НАС / Дилер, SLA %) + Связка Сопутствующих Позиций Схемы Elcats',
+      score: 94.8,
+      idea: 'Добавлены коды складов поставщиков со статистикой выдачи SLA %, авто-комплектатор забытых позиций с этой же схемы Elcats (-8%) и режим наценки B2B Автосервиса (+28%).'
     },
     5: {
-      title: 'Эпоха 5 (E5 Чемпион): +Идея Планировщика: ИИ-Диагностика по Симптомам Поломки + Заказ-Наряд с Нормо-Часами',
-      score: 99.2,
-      axes: { pain: 100, data: 99, ideas: 100, ux: 99, biz: 100, arch: 97.5 },
-      idea: 'Вершина эволюции: клиент называет симптом («биение руля при торможении» или «перегрев/ГРМ») -> ИИ сам подсвечивает виновные узлы на чертеже, собирает запчасти под VIN, считает нормо-часы СТО и формирует Заказ-Наряд!'
+      title: 'Эпоха 5 (E5 Чемпион): ИИ-Перевод Симптома Поломки в Схему Elcats + Готовый Заказ-Наряд СТО с Нормо-Часами',
+      score: 99.5,
+      idea: 'Клик по жалобе клиента сам переключает каталог Elcats на виновный узел (Тормоза / ГРМ / Подвеска), подсвечивает дефектные номера на чертеже и формирует Заказ-Наряд с нормо-часами!'
     }
   };
 
   let currentEpoch = 5;
   let activeVehicle = VEHICLES[0];
-  let activePos = '01';
-  let b2bClientMode = false; // false = Опт Закупка СТО, true = Розница для Клиента (+28% наценка)
+  let activeGroupKey = 'brakes_615';
+  let activePos = '1';
+  let b2bClientMode = false;
   let markupPct = 28;
   let activeSymptom = null;
+  let searchFilterText = '';
+
   let workOrderCart = [
-    { pos: '01', name: 'Диск тормозной передний Ø312мм (x2 шт.)', brand: 'Otto Zimmermann (OES)', partNo: '100.3300.20', qty: 2, wholesalePrice: 7450, laborHours: 1.2 },
-    { pos: '02', name: 'Комплект передних колодок Ceramic', brand: 'ATE Ceramic (OES)', partNo: '13.0470-7294.2', qty: 1, wholesalePrice: 5600, laborHours: 0.8 },
-    { pos: '03', name: 'Датчик износа тормозных колодок', brand: 'Brembo / ATE', partNo: 'A 00 502', qty: 1, wholesalePrice: 680, laborHours: 0.2 }
+    { pos: '1', group: 'Илл. 615-050', name: 'Диск тормозной передний Ø312мм (x2)', brand: 'Otto Zimmermann (OES)', partNo: '100.3300.20', qty: 2, wholesalePrice: 7450, laborHours: 1.2 },
+    { pos: '3', group: 'Илл. 615-050', name: 'Комплект передних колодок Ceramic', brand: 'ATE Ceramic (OES)', partNo: '13.0470-7294.2', qty: 1, wholesalePrice: 5600, laborHours: 0.8 },
+    { pos: '4', group: 'Илл. 615-050', name: 'Датчик износа тормозных колодок', brand: 'Brembo / ATE', partNo: 'A 00 502', qty: 1, wholesalePrice: 680, laborHours: 0.2 }
   ];
 
-  function drawExplodedBlueprint() {
+  function getActiveGroup() {
+    return ELCATS_CATALOG[activeGroupKey] || ELCATS_CATALOG.brakes_615;
+  }
+
+  function drawElcatsBlueprint() {
     const cv = document.getElementById('cv-autoparts');
     if (!cv) return;
     const ctx = cv.getContext('2d');
     const W = cv.width, H = cv.height;
+    const grp = getActiveGroup();
 
-    // CAD Blueprint Dark Engineering Grid Background
-    ctx.fillStyle = '#061326';
+    // Technical Blueprint Background (Elcats Engineering Style)
+    ctx.fillStyle = '#071529';
     ctx.fillRect(0, 0, W, H);
 
-    ctx.strokeStyle = 'rgba(56, 189, 248, 0.11)';
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.10)';
     ctx.lineWidth = 1;
-    for (let x = 0; x < W; x += 28) {
+    for (let x = 0; x < W; x += 24) {
       ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
     }
-    for (let y = 0; y < H; y += 28) {
+    for (let y = 0; y < H; y += 24) {
       ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
     }
 
-    // Header bar inside blueprint
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
-    ctx.fillRect(10, 10, W - 20, 34);
-    ctx.strokeStyle = '#0284c7';
-    ctx.strokeRect(10, 10, W - 20, 34);
-    ctx.fillStyle = '#38bdf8';
-    ctx.font = 'bold 12px monospace';
-    ctx.fillText(`📐 ИНТЕРАКТИВНАЯ ВЗРЫВ-СХЕМА УЗЛОВ CAD (ETKA/TecDoc) | VIN: ${activeVehicle.vin} | Кликните по [01]..[06]`, 20, 31);
-
-    // Left Section: Front Brake Assembly Exploded Drawing ([01] Disc, [02] Pads, [03] Sensor, [04] Caliper Guide)
+    // Top-Left Inset: Interactive Vehicle Silhouette with Clickable Aggregate Zones!
     ctx.save();
-    // Dashed explodes assembly axis line
-    ctx.strokeStyle = 'rgba(250, 204, 21, 0.45)';
-    ctx.setLineDash([6, 5]);
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
+    ctx.strokeStyle = '#0284c7';
     ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(95, 180);
-    ctx.lineTo(445, 145);
-    ctx.stroke();
-    ctx.setLineDash([]);
+    ctx.fillRect(8, 8, 225, 76);
+    ctx.strokeRect(8, 8, 225, 76);
 
-    // [01] Ventilated Brake Rotor Disc (3D Isometric Ellipse)
-    const is01 = activePos === '01';
-    ctx.fillStyle = is01 ? 'rgba(56, 189, 248, 0.28)' : 'rgba(148, 163, 184, 0.18)';
-    ctx.strokeStyle = is01 ? '#38bdf8' : '#94a3b8';
-    ctx.lineWidth = is01 ? 3 : 2;
-    ctx.beginPath();
-    ctx.ellipse(155, 175, 52, 74, -0.15, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
-    // Rotor center hub & bolt holes
-    ctx.beginPath();
-    ctx.ellipse(155, 175, 22, 32, -0.15, 0, Math.PI * 2);
-    ctx.stroke();
+    ctx.fillStyle = '#38bdf8';
+    ctx.font = 'bold 10px monospace';
+    ctx.fillText('🚗 СХЕМА ЗОН АВТО (КЛИКНИТЕ УЗЕЛ):', 14, 21);
 
-    // [02] Brake Pads Pair
-    const is02 = activePos === '02';
-    ctx.fillStyle = is02 ? 'rgba(34, 197, 94, 0.32)' : 'rgba(100, 116, 139, 0.25)';
-    ctx.strokeStyle = is02 ? '#4ade80' : '#cbd5e1';
-    ctx.lineWidth = is02 ? 2.8 : 1.8;
-    ctx.fillRect(255, 115, 56, 36);
-    ctx.strokeRect(255, 115, 56, 36);
-    ctx.fillRect(265, 156, 56, 36);
-    ctx.strokeRect(265, 156, 56, 36);
-
-    // [03] Wear Sensor Cable
-    const is03 = activePos === '03';
-    ctx.strokeStyle = is03 ? '#facc15' : '#94a3b8';
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(295, 192);
-    ctx.quadraticCurveTo(325, 240, 355, 235);
-    ctx.stroke();
-
-    // [04] Caliper Housing & Guide Pins
-    const is04 = activePos === '04';
-    ctx.fillStyle = is04 ? 'rgba(56, 189, 248, 0.28)' : 'rgba(71, 85, 105, 0.30)';
-    ctx.strokeStyle = is04 ? '#38bdf8' : '#94a3b8';
+    // Draw recognizable car chassis silhouette inside inset
+    ctx.strokeStyle = '#94a3b8';
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.roundRect(380, 118, 66, 72, 10);
-    ctx.fill();
+    ctx.moveTo(28, 62);
+    ctx.lineTo(35, 44);
+    ctx.lineTo(68, 41);
+    ctx.lineTo(95, 27);
+    ctx.lineTo(165, 27);
+    ctx.lineTo(192, 43);
+    ctx.lineTo(208, 46);
+    ctx.lineTo(210, 62);
+    ctx.closePath();
     ctx.stroke();
 
-    // Right Section Divider: Engine Timing Belt & Water Pump Module ([05], [06])
-    ctx.strokeStyle = '#1e293b';
-    ctx.beginPath(); ctx.moveTo(490, 52); ctx.lineTo(490, H - 12); ctx.stroke();
+    // Front & rear wheels on silhouette
+    ctx.beginPath(); ctx.arc(62, 63, 12, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.arc(174, 63, 12, 0, Math.PI * 2); ctx.stroke();
 
-    // [05] Timing Belt & Rollers
-    const is05 = activePos === '05';
-    ctx.strokeStyle = is05 ? '#f97316' : '#cbd5e1';
-    ctx.lineWidth = is05 ? 4 : 2.5;
-    ctx.beginPath();
-    ctx.roundRect(525, 105, 86, 115, 28);
-    ctx.stroke();
-    ctx.beginPath(); ctx.arc(568, 132, 18, 0, Math.PI * 2); ctx.stroke();
-    ctx.beginPath(); ctx.arc(568, 192, 22, 0, Math.PI * 2); ctx.stroke();
-
-    // [06] Water Pump & Dual Thermostat Module
-    const is06 = activePos === '06';
-    ctx.fillStyle = is06 ? 'rgba(56, 189, 248, 0.30)' : 'rgba(71, 85, 105, 0.28)';
-    ctx.strokeStyle = is06 ? '#38bdf8' : '#94a3b8';
-    ctx.lineWidth = 2.2;
-    ctx.beginPath();
-    ctx.arc(660, 210, 32, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
+    // 3 Clickable Zone Dots on the Car Silhouette (Engine/Timing, Front Brakes, Front Suspension)
+    const carZones = [
+      { key: 'engine_109', x: 46, y: 49, label: 'ДВС/ГРМ' },
+      { key: 'brakes_615', x: 64, y: 63, label: 'Тормоза' },
+      { key: 'susp_407', x: 82, y: 46, label: 'Подвеска' }
+    ];
+    for (const z of carZones) {
+      const isAct = z.key === activeGroupKey;
+      ctx.fillStyle = isAct ? '#facc15' : '#0284c7';
+      ctx.beginPath();
+      ctx.arc(z.x, z.y, isAct ? 6.5 : 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+    }
+    ctx.fillStyle = '#fde047';
+    ctx.font = 'bold 9.5px sans-serif';
+    ctx.fillText(`Активен: ${grp.shortTitle}`, 14, 80);
     ctx.restore();
 
-    // Draw Interactive Numbered Callout Badges [01]..[06]
-    for (const node of NODES_DB) {
-      const selected = node.pos === activePos;
-      const inCart = workOrderCart.some(c => c.pos === node.pos);
+    // Top-Right Title Banner
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
+    ctx.strokeStyle = '#334155';
+    ctx.fillRect(240, 8, W - 248, 36);
+    ctx.strokeRect(240, 8, W - 248, 36);
+    ctx.fillStyle = '#f8fafc';
+    ctx.font = 'bold 11.5px monospace';
+    ctx.fillText(`📐 ОРИГИНАЛЬНАЯ СХЕМА УЗЛА ELCATS.RU | ${grp.groupCode}`, 250, 24);
+    ctx.fillStyle = '#38bdf8';
+    ctx.font = '10.5px sans-serif';
+    ctx.fillText('Кликните по номеру детали [1]..[8] на чертеже или в таблице справа для поиска аналогов Exist/Autodoc', 250, 38);
+
+    // Draw Technical Exploded Assembly Shapes Depending on Active Group
+    ctx.save();
+    if (activeGroupKey === 'brakes_615') {
+      // Dashed central assembly axis
+      ctx.strokeStyle = 'rgba(250, 204, 21, 0.40)';
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath(); ctx.moveTo(95, 205); ctx.lineTo(645, 185); ctx.stroke();
+      ctx.setLineDash([]);
+
+      // [1] Ventilated Brake Rotor with cooling vanes & 5x112 bolt holes
+      ctx.fillStyle = activePos === '1' ? 'rgba(56,189,248,0.28)' : 'rgba(148,163,184,0.16)';
+      ctx.strokeStyle = activePos === '1' ? '#38bdf8' : '#cbd5e1';
+      ctx.lineWidth = activePos === '1' ? 3 : 2;
+      ctx.beginPath(); ctx.ellipse(195, 185, 48, 68, -0.12, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(195, 185, 22, 31, -0.12, 0, Math.PI * 2); ctx.stroke();
+      for (let a = 0; a < 5; a++) {
+        const ang = (a * Math.PI * 2) / 5;
+        ctx.beginPath();
+        ctx.arc(195 + Math.cos(ang) * 14, 185 + Math.sin(ang) * 19, 2.5, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // [2] Rotor Fixing Screw M6x16
+      ctx.fillStyle = activePos === '2' ? '#facc15' : '#94a3b8';
+      ctx.fillRect(136, 210, 18, 6);
+
+      // [3] Inner & Outer Brake Pads
+      ctx.fillStyle = activePos === '3' ? 'rgba(34,197,94,0.32)' : 'rgba(100,116,139,0.25)';
+      ctx.strokeStyle = activePos === '3' ? '#4ade80' : '#cbd5e1';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.roundRect(265, 138, 52, 28, 6); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(272, 172, 52, 28, 6); ctx.fill(); ctx.stroke();
+
+      // [4] Electronic Wear Sensor Cable
+      ctx.strokeStyle = activePos === '4' ? '#facc15' : '#94a3b8';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(298, 200); ctx.quadraticCurveTo(308, 228, 320, 240); ctx.stroke();
+
+      // [5] Brake Caliper Housing + Piston
+      ctx.fillStyle = activePos === '5' ? 'rgba(56,189,248,0.28)' : 'rgba(71,85,105,0.32)';
+      ctx.strokeStyle = activePos === '5' ? '#38bdf8' : '#cbd5e1';
+      ctx.beginPath(); ctx.roundRect(388, 128, 68, 56, 12); ctx.fill(); ctx.stroke();
+
+      // [6] Guide Pins & Dust Boots Kit
+      ctx.strokeStyle = activePos === '6' ? '#4ade80' : '#94a3b8';
+      ctx.strokeRect(425, 190, 42, 10);
+      ctx.strokeRect(425, 204, 42, 10);
+
+      // [7] Retaining Anti-Rattle Spring
+      ctx.strokeStyle = activePos === '7' ? '#facc15' : '#cbd5e1';
+      ctx.beginPath(); ctx.moveTo(525, 145); ctx.lineTo(545, 165); ctx.lineTo(525, 185); ctx.stroke();
+
+      // [8] Wheel Hub Bearing Assembly
+      ctx.fillStyle = activePos === '8' ? 'rgba(56,189,248,0.28)' : 'rgba(100,116,139,0.22)';
+      ctx.strokeStyle = activePos === '8' ? '#38bdf8' : '#cbd5e1';
+      ctx.beginPath(); ctx.arc(615, 192, 34, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(615, 192, 15, 0, Math.PI * 2); ctx.stroke();
+    } else if (activeGroupKey === 'engine_109') {
+      // Timing Belt [1], Tensioner [2], Idler [3], Full Kit Box [4], Dual-Thermostat Water Pump [5], Rear Pump Belt [6]
+      ctx.strokeStyle = activePos === '1' ? '#38bdf8' : '#cbd5e1';
+      ctx.lineWidth = 3.5;
+      ctx.beginPath(); ctx.roundRect(175, 110, 92, 128, 30); ctx.stroke();
+      // [2] Tensioner Roller
+      ctx.fillStyle = activePos === '2' ? 'rgba(56,189,248,0.3)' : 'rgba(100,116,139,0.25)';
+      ctx.beginPath(); ctx.arc(205, 205, 22, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      // [3] Idler Roller
+      ctx.beginPath(); ctx.arc(235, 145, 16, 0, Math.PI * 2); ctx.stroke();
+      // [4] Kit Bracket Outline
+      ctx.strokeStyle = 'rgba(250, 204, 21, 0.45)';
+      ctx.setLineDash([5, 4]);
+      ctx.strokeRect(160, 98, 155, 150);
+      ctx.setLineDash([]);
+      // [5] Water Pump & Dual Thermostat Module
+      ctx.fillStyle = activePos === '5' ? 'rgba(34,197,94,0.28)' : 'rgba(71,85,105,0.32)';
+      ctx.strokeStyle = activePos === '5' ? '#4ade80' : '#cbd5e1';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.roundRect(450, 142, 90, 68, 12); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(495, 176, 22, 0, Math.PI * 2); ctx.stroke();
+      // [6] Small Toothed Water Pump Belt
+      ctx.strokeStyle = activePos === '6' ? '#facc15' : '#94a3b8';
+      ctx.beginPath(); ctx.ellipse(605, 195, 28, 18, 0.2, 0, Math.PI * 2); ctx.stroke();
+    } else {
+      // Front Suspension McPherson: [1] Damper Strut, [2] Top Mount, [3] Coil Spring, [4] Lower Control Arm, [5] Ball Joint, [6] Sway Bar Link
+      ctx.strokeStyle = activePos === '1' ? '#38bdf8' : '#cbd5e1';
+      ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.moveTo(220, 110); ctx.lineTo(205, 235); ctx.stroke();
+      // [2] Top Strut Mount
+      ctx.fillStyle = activePos === '2' ? '#facc15' : '#64748b';
+      ctx.beginPath(); ctx.ellipse(225, 108, 24, 10, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      // [3] Coil Spring spirals
+      ctx.strokeStyle = activePos === '3' ? '#4ade80' : '#94a3b8';
+      ctx.lineWidth = 2.5;
+      for (let s = 0; s < 4; s++) {
+        ctx.beginPath(); ctx.ellipse(215, 138 + s * 16, 26, 7, -0.1, 0, Math.PI * 2); ctx.stroke();
+      }
+      // [4] Lower Triangular Control Arm
+      ctx.fillStyle = activePos === '4' ? 'rgba(56,189,248,0.28)' : 'rgba(71,85,105,0.35)';
+      ctx.strokeStyle = activePos === '4' ? '#38bdf8' : '#cbd5e1';
+      ctx.beginPath(); ctx.moveTo(355, 215); ctx.lineTo(485, 215); ctx.lineTo(425, 178); ctx.closePath(); ctx.fill(); ctx.stroke();
+      // [5] Ball Joint
+      ctx.beginPath(); ctx.arc(515, 215, 15, 0, Math.PI * 2); ctx.stroke();
+      // [6] Stabilizer Link Rod
+      ctx.strokeStyle = activePos === '6' ? '#facc15' : '#cbd5e1';
+      ctx.beginPath(); ctx.moveTo(605, 118); ctx.lineTo(605, 218); ctx.stroke();
+    }
+    ctx.restore();
+
+    // Draw Elcats Leader Lines & Clickable Numbered Callout Boxes [1]..[8]
+    for (const p of grp.parts) {
+      const sel = p.pos === activePos;
+      const inCart = workOrderCart.some(c => c.partNo === p.oem || c.pos === p.pos);
       ctx.save();
-      ctx.fillStyle = selected ? '#facc15' : (inCart ? '#22c55e' : '#0284c7');
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = selected ? 2.5 : 1.5;
+      // Leader line from part target (tx, ty) to callout badge (cx, cy)
+      ctx.strokeStyle = sel ? '#facc15' : 'rgba(148, 163, 184, 0.75)';
+      ctx.lineWidth = sel ? 2 : 1.2;
       ctx.beginPath();
-      ctx.roundRect(node.cx - 18, node.cy - 14, 36, 26, 6);
+      ctx.moveTo(p.tx, p.ty);
+      ctx.lineTo(p.cx, p.cy);
+      ctx.stroke();
+
+      // Target dot on the mechanical drawing
+      ctx.fillStyle = sel ? '#facc15' : '#38bdf8';
+      ctx.beginPath(); ctx.arc(p.tx, p.ty, 3.2, 0, Math.PI * 2); ctx.fill();
+
+      // Callout Box [1]..[8] (Elcats style)
+      ctx.fillStyle = sel ? '#facc15' : (inCart ? '#16a34a' : '#0f172a');
+      ctx.strokeStyle = sel ? '#ffffff' : '#38bdf8';
+      ctx.lineWidth = sel ? 2.5 : 1.5;
+      ctx.beginPath();
+      ctx.roundRect(p.cx - 16, p.cy - 12, 32, 24, 5);
       ctx.fill();
       ctx.stroke();
 
-      ctx.fillStyle = selected ? '#020617' : '#ffffff';
+      ctx.fillStyle = sel ? '#020617' : '#ffffff';
       ctx.font = 'bold 12px monospace';
-      ctx.fillText(`[${node.pos}]`, node.cx - 14, node.cy + 3);
+      ctx.fillText(`[${p.pos}]`, p.cx - 11, p.cy + 4);
       ctx.restore();
     }
 
-    // Bottom CAD Legend Bar
-    ctx.fillStyle = 'rgba(2, 6, 23, 0.88)';
-    ctx.fillRect(10, H - 34, W - 20, 26);
+    // Bottom Status Bar inside Blueprint
+    const curPart = grp.parts.find(p => p.pos === activePos) || grp.parts[0];
+    ctx.fillStyle = 'rgba(2, 6, 23, 0.92)';
+    ctx.fillRect(8, H - 30, W - 16, 24);
     ctx.fillStyle = '#fde047';
-    ctx.font = 'bold 11.5px monospace';
-    const curNode = NODES_DB.find(n => n.pos === activePos) || NODES_DB[0];
+    ctx.font = 'bold 11px monospace';
     ctx.fillText(
-      `ВЫБРАН УЗЕЛ [${curNode.pos}]: ${curNode.name} | OEM: ${curNode.oem} | Норма времени СТО: ${curNode.laborHours} н/ч`,
-      18, H - 17
+      `ВЫБРАНА ПОЗ. [${curPart.pos}] НА СХЕМЕ ELCATS: ${curPart.oem} — ${curPart.name} (${curPart.specs})`,
+      14, H - 14
     );
   }
 
   function renderUI() {
-    drawExplodedBlueprint();
+    drawElcatsBlueprint();
 
+    const grp = getActiveGroup();
+    const curPart = grp.parts.find(p => p.pos === activePos) || grp.parts[0];
     const epSpec = EPOCH_SPECS[currentEpoch] || EPOCH_SPECS[5];
+
+    // 1. Epoch Banner
     const epBanner = document.getElementById('ap-epoch-banner');
     if (epBanner) {
       epBanner.innerHTML = `
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
           <div>
-            <span style="color:#facc15; font-weight:800;">${epSpec.title}</span>
-            <div style="font-size:11.5px; color:#bae6fd; margin-top:3px;">💡 <b>Что добавил Планировщик RSI в этой эпохе:</b> ${epSpec.idea}</div>
+            <span style="color:#facc15; font-weight:800; font-size:13px;">${epSpec.title}</span>
+            <div style="font-size:11.5px; color:#bae6fd; margin-top:2px;">💡 ${epSpec.idea}</div>
           </div>
-          <div style="background:#14532d; border:1px solid #22c55e; padding:6px 12px; border-radius:8px; font-weight:800; color:#4ade80; font-size:13px;">
-            Рейтинг Эпохи: ${epSpec.score}% (Рост по всем 6 осям)
+          <div style="background:#14532d; border:1px solid #22c55e; padding:5px 10px; border-radius:7px; font-weight:800; color:#4ade80; font-size:12px;">
+            Рейтинг Эпохи: ${epSpec.score}% (Доноры: Elcats + Exist + Autodoc)
           </div>
         </div>
       `;
     }
 
+    // 2. Vehicle Info Bar
     const vehInfo = document.getElementById('ap-vehicle-info');
     if (vehInfo) {
       vehInfo.innerHTML = `
-        <div style="font-size:12px; color:#e2e8f0; line-height:1.45;">
-          <b>Автомобиль по VIN <span style="color:#fde047; font-family:monospace;">${activeVehicle.vin}</span>:</b> ${activeVehicle.title} (${activeVehicle.year} г.)<br/>
-          <b>ДВС / КПП:</b> ${activeVehicle.engine} / ${activeVehicle.trans} | <b>PR-Код комплектации:</b> <span style="color:#4ade80;">${activeVehicle.prCode}</span><br/>
-          <span style="color:#fb923c; font-size:11.5px;">🛡️ <b>Защита от возврата (Идея E1):</b> ${activeVehicle.fitmentNote}</span>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; font-size:11.5px;">
+          <div>
+            <b>🚘 Авто по VIN <span style="color:#fde047; font-family:monospace;">${activeVehicle.vin}</span>:</b> ${activeVehicle.title} (${activeVehicle.engine}, ${activeVehicle.trans})
+            | <span style="color:#4ade80; font-weight:700;">${activeVehicle.prCode}</span>
+          </div>
+          <div style="color:#fb923c;">🛡️ ${activeVehicle.fitmentNote}</div>
         </div>
       `;
     }
 
-    const curNode = NODES_DB.find(n => n.pos === activePos) || NODES_DB[0];
-    const crossContainer = document.getElementById('ap-cross-table');
-    if (crossContainer) {
+    // 3. Elcats Synchronized Callout Table (Right Pane next to Blueprint — just like Elcats.ru!)
+    const elcatsListBox = document.getElementById('ap-elcats-callouts');
+    if (elcatsListBox) {
+      const rows = grp.parts.map(p => {
+        const isSel = p.pos === activePos;
+        const rowBg = isSel ? 'rgba(250, 204, 21, 0.18)' : 'transparent';
+        const borderLeft = isSel ? '4px solid #facc15' : '1px solid #1e293b';
+        return `
+          <tr style="background:${rowBg}; cursor:pointer;" onclick="AutoPartsSim.selectNode('${p.pos}')">
+            <td style="border-left:${borderLeft}; font-weight:800; color:${isSel ? '#fde047' : '#38bdf8'}; font-family:monospace;">[${p.pos}]</td>
+            <td style="font-family:monospace; font-weight:700; color:#f8fafc; white-space:nowrap;">${p.oem}</td>
+            <td style="font-size:11px;">
+              <b>${p.name}</b>
+              <div style="color:#94a3b8; font-size:10px;">${p.specs}</div>
+            </td>
+            <td style="font-size:11px; white-space:nowrap;">${p.qty}<br/><span style="color:#4ade80; font-size:10px;">${p.pr}</span></td>
+            <td>
+              <button class="btn ${isSel ? 'btn-ok' : 'btn-accent'}" style="padding:4px 8px; font-size:10.5px;" onclick="event.stopPropagation(); AutoPartsSim.selectNode('${p.pos}')">
+                🔍 Цены и аналоги (${p.crosses.length})
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      elcatsListBox.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span style="font-size:12.5px; font-weight:800; color:#38bdf8;">📋 СПИСОК ПОЗИЦИЙ СХЕМЫ ELCATS (${grp.groupCode})</span>
+          <button class="btn btn-ok" style="padding:4px 9px; font-size:10.5px;" onclick="AutoPartsSim.addFullGroupCompanionKit()">
+            🧰 Взять ремкомплект узла со скидкой -8%
+          </button>
+        </div>
+        <div style="max-height:255px; overflow-y:auto; border:1px solid #1e293b; border-radius:8px;">
+          <table style="margin-top:0;">
+            <thead>
+              <tr>
+                <th>№</th>
+                <th>Артикул OEM</th>
+                <th>Наименование детали на схеме Elcats</th>
+                <th>Кол-во</th>
+                <th>Проценка Exist/Autodoc</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+        <div style="margin-top:6px; font-size:11px; color:#fef08a; background:rgba(234,179,8,0.12); border:1px solid #eab308; padding:5px 8px; border-radius:6px;">
+          💡 <b>Подсказка механика по схеме:</b> ${grp.companionKitNote}
+        </div>
+      `;
+    }
+
+    // 4. Exist.ru / Autodoc.ru Price & Cross-Analog Matrix for the Selected Callout Position
+    const crossBox = document.getElementById('ap-cross-table');
+    if (crossBox) {
       const mul = b2bClientMode ? (1 + markupPct / 100) : 1.0;
       let rowsHtml = '';
-      for (const cr of curNode.crosses) {
-        const wh = cr.warehouses[0];
-        const finalPrice = Math.round(wh.priceWholesale * mul);
+      let lastSection = '';
+      for (const cr of curPart.crosses) {
+        if (cr.section !== lastSection) {
+          lastSection = cr.section;
+          rowsHtml += `
+            <tr>
+              <td colspan="7" style="background:#0f172a; color:#fde047; font-weight:800; font-size:11.5px; padding:6px 10px; border-top:2px solid #0284c7;">
+                ${cr.section}
+              </td>
+            </tr>
+          `;
+        }
+        const finalPrice = Math.round(cr.priceWh * mul);
         rowsHtml += `
           <tr>
-            <td><span style="background:${cr.badgeCol}; color:#fff; padding:3px 7px; border-radius:5px; font-size:10.5px; font-weight:700;">${cr.tier}</span></td>
-            <td><b>${cr.brand}</b><br/><span style="font-family:monospace; color:#fde047;">${cr.partNo}</span></td>
-            <td style="font-size:11px; color:#cbd5e1;">${cr.note}<br/><span style="color:#4ade80;">Риск подделки: ${cr.counterfeitRisk}</span></td>
-            <td style="font-size:11px;"><b>${wh.wh}</b><br/>⚡ Доставка: <b>${wh.delivery}</b> | SLA: <span style="color:#4ade80; font-weight:700;">${wh.sla}</span> (${wh.stock} шт.)</td>
-            <td style="font-weight:800; font-size:13px; color:#facc15;">
+            <td><span style="background:${cr.col}; color:#fff; padding:3px 7px; border-radius:5px; font-size:10.5px; font-weight:700;">${cr.tierBadge}</span></td>
+            <td><b>${cr.brand}</b><br/><span style="font-family:monospace; color:#fde047; font-weight:700;">${cr.partNo}</span></td>
+            <td style="font-size:11px; color:#cbd5e1;">
+              ${cr.specsNote}<br/>
+              <span style="color:#38bdf8;">📐 Размеры: ${curPart.specs}</span> | <span style="color:#4ade80;">Риск подделки: ${cr.risk}</span>
+            </td>
+            <td style="font-size:11px;"><b>${cr.dir}</b><br/><span style="color:#94a3b8;">Наличие: ${cr.stock}</span></td>
+            <td style="font-size:11px;">⚡ <b>${cr.delivery}</b><br/>Выдача SLA: <span style="color:#4ade80; font-weight:700;">${cr.sla}</span></td>
+            <td style="font-weight:800; font-size:13px; color:#facc15; white-space:nowrap;">
               ${finalPrice.toLocaleString('ru-RU')} ₽
-              ${b2bClientMode ? `<div style="font-size:10px; color:#94a3b8;">(С наценкой СТО +${markupPct}%)</div>` : `<div style="font-size:10px; color:#4ade80;">(Опт закупка СТО)</div>`}
+              ${b2bClientMode ? `<div style="font-size:10px; color:#94a3b8;">(Розница СТО +${markupPct}%)</div>` : `<div style="font-size:10px; color:#4ade80;">(Опт закупка СТО)</div>`}
             </td>
             <td>
-              <button class="btn btn-ok" onclick="AutoPartsSim.addToWorkOrder('${curNode.pos}', '${cr.brand}', '${cr.partNo}', ${wh.priceWholesale}, ${curNode.laborHours})">
+              <button class="btn btn-ok" onclick="AutoPartsSim.addToWorkOrder('${curPart.pos}', '${cr.brand}', '${cr.partNo}', ${cr.priceWh}, ${curPart.laborHours})">
                 ➕ В Заказ-Наряд
               </button>
             </td>
@@ -5827,77 +6125,68 @@ const AutoPartsSim = (() => {
         `;
       }
 
-      const compHtml = curNode.companions.length > 0 && currentEpoch >= 3
-        ? `<div style="margin-top:8px; padding:8px 10px; background:rgba(234,179,8,0.12); border:1px solid #eab308; border-radius:8px; font-size:11.5px; color:#fef08a; display:flex; justify-content:space-between; align-items:center; gap:8px;">
-             <span>🧰 <b>AI-Комплектатор сопутствующих деталей (Идея E3):</b> ${curNode.companionReason}</span>
-             <button class="btn btn-accent" onclick="AutoPartsSim.addFullNodeKit('${curNode.pos}')">📦 Добавить весь комплект узла (-8%)</button>
-           </div>`
-        : '';
-
-      crossContainer.innerHTML = `
-        <div style="font-size:13px; font-weight:700; color:#38bdf8; margin-bottom:6px;">
-          🔍 Узел [${curNode.pos}]: ${curNode.name} (Оригинальный OEM: <span style="color:#fde047;">${curNode.oem}</span>)
+      crossBox.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
+          <div style="font-size:13px; font-weight:800; color:#38bdf8;">
+            🛒 ПРОЦЕНКА EXIST.RU / AUTODOC.RU ДЛЯ ПОЗИЦИИ СХЕМЫ [${curPart.pos}]: <span style="color:#fde047; font-family:monospace;">${curPart.oem}</span> — ${curPart.name}
+          </div>
+          <div style="font-size:11.5px; color:#94a3b8;">
+            Официальная замена VAG: <code style="color:#4ade80;">${curPart.revisionOem}</code> | Норма времени замены: <b>${curPart.laborHours} н/ч</b>
+          </div>
         </div>
         <table>
           <thead>
             <tr>
-              <th>Уровень (Идея E2)</th>
-              <th>Бренд / Артикул</th>
-              <th>Аналитика ресурса и защита от подделки</th>
-              <th>Склад / Срок / Вероятность SLA (Идея E4)</th>
-              <th>Цена (${b2bClientMode ? 'Розница Клиента' : 'Опт СТО'})</th>
-              <th>Действие</th>
+              <th>Категория / Тир</th>
+              <th>Производитель / Артикул</th>
+              <th>Параметры детали и Защита от подделки</th>
+              <th>Направление (Autodoc/Exist)</th>
+              <th>Срок / SLA %</th>
+              <th>Цена (${b2bClientMode ? 'Клиент' : 'Опт СТО'})</th>
+              <th>Заказ</th>
             </tr>
           </thead>
           <tbody>${rowsHtml}</tbody>
         </table>
-        ${compHtml}
       `;
     }
 
-    // Render Work-Order & B2B Margin Summary (Epoch 4 & 5)
+    // 5. Work-Order & B2B Margin Box
     const woBox = document.getElementById('ap-work-order');
     if (woBox) {
       const mul = b2bClientMode ? (1 + markupPct / 100) : 1.0;
-      let partsWholesale = 0;
-      let partsRetail = 0;
-      let totalHours = 0;
-      const laborRate = 2600; // руб. за нормо-час СТО
-
+      let partsWh = 0, partsRet = 0, totalHours = 0;
+      const laborRate = 2600;
       const itemsHtml = workOrderCart.map((it, idx) => {
         const lineWh = it.wholesalePrice * it.qty;
         const lineRet = Math.round(it.wholesalePrice * mul) * it.qty;
-        partsWholesale += lineWh;
-        partsRetail += lineRet;
+        partsWh += lineWh;
+        partsRet += lineRet;
         totalHours += it.laborHours;
         return `<li style="margin-bottom:4px;">
-          <b>[${it.pos}] ${it.name}</b> — ${it.brand} (<code>${it.partNo}</code>) x${it.qty} шт. = <b>${lineRet.toLocaleString('ru-RU')} ₽</b>
+          <b>[Поз. ${it.pos}] ${it.name}</b> — ${it.brand} (<code>${it.partNo}</code>) x${it.qty} = <b>${lineRet.toLocaleString('ru-RU')} ₽</b>
           | 🛠️ Работа: ${it.laborHours} н/ч (${(it.laborHours * laborRate).toLocaleString('ru-RU')} ₽)
-          <button style="margin-left:6px; background:#7f1d1d; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:10px;" onclick="AutoPartsSim.removeWorkOrderItem(${idx})">✕</button>
+          <button style="margin-left:5px; background:#7f1d1d; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:10px;" onclick="AutoPartsSim.removeWorkOrderItem(${idx})">✕</button>
         </li>`;
       }).join('');
-
       const laborTotal = Math.round(totalHours * laborRate);
-      const grandTotal = partsRetail + laborTotal;
-      const serviceProfit = (partsRetail - partsWholesale) + laborTotal;
+      const grandTotal = partsRet + laborTotal;
+      const serviceProfit = (partsRet - partsWh) + laborTotal;
 
       woBox.innerHTML = `
-        <h4 style="margin:0 0 6px; font-size:13.5px; color:#4ade80;">
-          📋 Готовый Заказ-Наряд СТО и B2B-Юнит-Экономика (Идеи E4 + E5)
-          ${activeSymptom ? `<span style="color:#fde047; font-size:11.5px;"> | Диагноз ИИ: ${activeSymptom}</span>` : ''}
-        </h4>
-        <ul style="margin:4px 0 8px; padding-left:18px; font-size:11.5px; color:#e2e8f0;">
-          ${itemsHtml || '<li>Корзина пуста — выберите деталь в таблице или симптом поломки.</li>'}
-        </ul>
-        <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; align-items:center; padding-top:8px; border-top:1px solid #334155; font-size:12px;">
-          <div>
-            Запчасти: <b>${partsRetail.toLocaleString('ru-RU')} ₽</b> |
-            Работы СТО (${totalHours.toFixed(1)} н/ч): <b>${laborTotal.toLocaleString('ru-RU')} ₽</b> |
-            ИТОГО К ОПЛАТЕ: <span style="color:#fde047; font-size:14px; font-weight:800;">${grandTotal.toLocaleString('ru-RU')} ₽</span>
-          </div>
-          <div style="color:#4ade80; font-weight:700;">
-            💰 Чистая прибыль СТО (Маржа запчастей + Работы): ${serviceProfit.toLocaleString('ru-RU')} ₽
-          </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <h4 style="margin:0; font-size:13px; color:#4ade80;">
+            📋 Сводный Заказ-Наряд СТО (Связка: Схема Elcats ➔ Аналоги Autodoc/Exist ➔ Нормо-часы)
+            ${activeSymptom ? `<span style="color:#fde047;"> | Симптом: ${activeSymptom}</span>` : ''}
+          </h4>
+          <span style="color:#4ade80; font-weight:800; font-size:12px;">
+            💰 Чистая прибыль СТО (Маржа + Работы): ${serviceProfit.toLocaleString('ru-RU')} ₽
+          </span>
+        </div>
+        <ul style="margin:6px 0; padding-left:18px; font-size:11.5px; color:#e2e8f0;">${itemsHtml}</ul>
+        <div style="font-size:12px; padding-top:6px; border-top:1px solid #334155;">
+          Запчасти: <b>${partsRet.toLocaleString('ru-RU')} ₽</b> | Работы СТО (${totalHours.toFixed(1)} н/ч): <b>${laborTotal.toLocaleString('ru-RU')} ₽</b> |
+          ИТОГО К ОПЛАТЕ: <span style="color:#fde047; font-size:14px; font-weight:800;">${grandTotal.toLocaleString('ru-RU')} ₽</span>
         </div>
       `;
     }
@@ -5911,9 +6200,22 @@ const AutoPartsSim = (() => {
       const rect = cv.getBoundingClientRect();
       const sx = (e.clientX - rect.left) * (cv.width / rect.width);
       const sy = (e.clientY - rect.top) * (cv.height / rect.height);
-      for (const n of NODES_DB) {
-        if (Math.hypot(sx - n.cx, sy - n.cy) < 34) {
-          activePos = n.pos;
+
+      // 1. Check click on the Top-Left Car Silhouette Zones!
+      if (sx >= 8 && sx <= 233 && sy >= 8 && sy <= 84) {
+        if (sx < 56) activeGroupKey = 'engine_109';
+        else if (sx < 74) activeGroupKey = 'brakes_615';
+        else activeGroupKey = 'susp_407';
+        activePos = '1';
+        renderUI();
+        return;
+      }
+
+      // 2. Check click on Elcats Callout Badges [1]..[8] or mechanical target points
+      const grp = getActiveGroup();
+      for (const p of grp.parts) {
+        if (Math.hypot(sx - p.cx, sy - p.cy) < 26 || Math.hypot(sx - p.tx, sy - p.ty) < 26) {
+          activePos = p.pos;
           renderUI();
           break;
         }
@@ -5924,7 +6226,7 @@ const AutoPartsSim = (() => {
   return {
     render() {
       setupCanvasClick();
-      drawExplodedBlueprint();
+      drawElcatsBlueprint();
     },
     init() {
       setupCanvasClick();
@@ -5938,17 +6240,47 @@ const AutoPartsSim = (() => {
       activeVehicle = VEHICLES.find(v => v.id === id) || VEHICLES[0];
       renderUI();
     },
+    selectGroup(groupKey) {
+      if (ELCATS_CATALOG[groupKey]) {
+        activeGroupKey = groupKey;
+        activePos = '1';
+        renderUI();
+      }
+    },
     selectNode(pos) {
-      activePos = pos;
+      activePos = String(pos);
       renderUI();
+    },
+    searchByQuery(q) {
+      const raw = String(q || '').trim().toLowerCase();
+      searchFilterText = raw;
+      if (!raw) return;
+      const clean = raw.replace(/\s+/g, '');
+      for (const [gKey, grp] of Object.entries(ELCATS_CATALOG)) {
+        for (const p of grp.parts) {
+          const oemClean = p.oem.toLowerCase().replace(/\s+/g, '');
+          const nameLow = p.name.toLowerCase();
+          const hasCross = p.crosses.some(
+            c => c.partNo.toLowerCase().replace(/\s+/g, '').includes(clean) || c.brand.toLowerCase().includes(raw)
+          );
+          if (oemClean.includes(clean) || nameLow.includes(raw) || hasCross) {
+            activeGroupKey = gKey;
+            activePos = p.pos;
+            const inp = document.getElementById('ap-oem-search');
+            if (inp) inp.value = q;
+            renderUI();
+            return;
+          }
+        }
+      }
     },
     toggleB2BClientMode() {
       b2bClientMode = !b2bClientMode;
       const btn = document.getElementById('btn-ap-b2b');
       if (btn) {
         btn.textContent = b2bClientMode
-          ? `👤 Экран для Клиента (Розница СТО +${markupPct}%)`
-          : '🏢 Режим СТО: Оптовая Закупка';
+          ? `👤 Экран Клиента (Розница +${markupPct}%)`
+          : '🏢 Режим СТО: Опт Закупка';
         btn.className = b2bClientMode ? 'btn btn-accent' : 'btn btn-ok';
       }
       renderUI();
@@ -5956,56 +6288,67 @@ const AutoPartsSim = (() => {
     diagnoseSymptom(symptomType) {
       currentEpoch = 5;
       if (symptomType === 'brakes_vibration') {
-        activePos = '01';
-        activeSymptom = 'Биение руля и скрип при торможении со 110 км/ч -> Износ/перегрев передних дисков [01] и колодок [02]';
+        activeGroupKey = 'brakes_615';
+        activePos = '1';
+        activeSymptom = 'Биение руля при торможении -> Схема Elcats 615-050: Поз. [1] Диски + [3] Колодки + [4] Датчик + [6] Направляющие';
         workOrderCart = [
-          { pos: '01', name: 'Диск тормозной передний Ø312мм (x2 шт.)', brand: 'Otto Zimmermann (OES)', partNo: '100.3300.20', qty: 2, wholesalePrice: 7450, laborHours: 1.2 },
-          { pos: '02', name: 'Комплект передних колодок Ceramic', brand: 'ATE Ceramic (OES)', partNo: '13.0470-7294.2', qty: 1, wholesalePrice: 5600, laborHours: 0.8 },
-          { pos: '03', name: 'Датчик износа тормозных колодок', brand: 'Brembo / ATE', partNo: 'A 00 502', qty: 1, wholesalePrice: 680, laborHours: 0.2 },
-          { pos: '04', name: 'Ремкомплект направляющих суппорта', brand: 'TRW / Frenkit', partNo: 'ST1160', qty: 2, wholesalePrice: 1150, laborHours: 0.4 }
+          { pos: '1', group: 'Илл. 615-050', name: 'Диск тормозной передний Ø312мм (x2)', brand: 'Otto Zimmermann (OES)', partNo: '100.3300.20', qty: 2, wholesalePrice: 7450, laborHours: 1.2 },
+          { pos: '3', group: 'Илл. 615-050', name: 'Комплект передних колодок Ceramic', brand: 'ATE Ceramic (OES)', partNo: '13.0470-7294.2', qty: 1, wholesalePrice: 5600, laborHours: 0.8 },
+          { pos: '4', group: 'Илл. 615-050', name: 'Датчик износа тормозных колодок', brand: 'Brembo / ATE', partNo: 'A 00 502', qty: 1, wholesalePrice: 680, laborHours: 0.2 },
+          { pos: '6', group: 'Илл. 615-050', name: 'Ремкомплект направляющих суппорта', brand: 'TRW / Frenkit', partNo: 'ST1160', qty: 2, wholesalePrice: 1150, laborHours: 0.4 }
         ];
       } else if (symptomType === 'timing_overheat') {
-        activePos = '05';
-        activeSymptom = 'ТО 60 000 км / Свист ремня на холодную и уход антифриза -> Замена ГРМ [05] + Модуль помпы с термостатами [06]';
+        activeGroupKey = 'engine_109';
+        activePos = '5';
+        activeSymptom = 'ТО 60 000 км / Уход антифриза -> Схема Elcats 109-020: Поз. [4] Кит ГРМ + [5] Помпа с 2 термостатами + [6] Ремень помпы';
         workOrderCart = [
-          { pos: '05', name: 'Комплект ремня ГРМ с роликами', brand: 'ContiTech / INA (OES)', partNo: 'CT1167K1', qty: 1, wholesalePrice: 8900, laborHours: 3.5 },
-          { pos: '06', name: 'Модуль водяной помпы с 2 термостатами', brand: 'INA / Schaeffler (OES)', partNo: '538 0360 10', qty: 1, wholesalePrice: 12400, laborHours: 2.2 }
+          { pos: '4', group: 'Илл. 109-020', name: 'Ремкомплект ГРМ в сборе', brand: 'ContiTech + INA (OES)', partNo: 'CT1167K1', qty: 1, wholesalePrice: 8900, laborHours: 3.5 },
+          { pos: '5', group: 'Илл. 109-020', name: 'Модуль помпы с 2 термостатами', brand: 'INA / Schaeffler (OES)', partNo: '538 0360 10', qty: 1, wholesalePrice: 12400, laborHours: 2.2 },
+          { pos: '6', group: 'Илл. 109-020', name: 'Зубчатый ремень привода помпы', brand: 'ContiTech', partNo: 'CT1185', qty: 1, wholesalePrice: 1180, laborHours: 0.3 }
+        ];
+      } else if (symptomType === 'suspension_knock') {
+        activeGroupKey = 'susp_407';
+        activePos = '1';
+        activeSymptom = 'Стук в передней подвеске на кочках -> Схема Elcats 407-010: Поз. [1] Стойки + [2] Опоры + [6] Стойки стабилизатора';
+        workOrderCart = [
+          { pos: '1', group: 'Илл. 407-010', name: 'Амортизатор передний McPherson (x2)', brand: 'SACHS (OES)', partNo: '317 578', qty: 2, wholesalePrice: 8950, laborHours: 1.8 },
+          { pos: '2', group: 'Илл. 407-010', name: 'Опора амортизатора с подшипником (x2)', brand: 'Lemförder (OES)', partNo: '37582 01', qty: 2, wholesalePrice: 2950, laborHours: 0.3 },
+          { pos: '6', group: 'Илл. 407-010', name: 'Стойка стабилизатора передняя (x2)', brand: 'Lemförder (OES)', partNo: '36959 01', qty: 2, wholesalePrice: 1890, laborHours: 0.5 }
         ];
       }
       renderUI();
     },
     addToWorkOrder(pos, brand, partNo, wholesalePrice, laborHours) {
-      const node = NODES_DB.find(n => n.pos === pos) || NODES_DB[0];
+      const grp = getActiveGroup();
+      const p = grp.parts.find(x => x.pos === String(pos)) || grp.parts[0];
       workOrderCart.push({
-        pos,
-        name: node.name,
+        pos: p.pos,
+        group: grp.groupCode,
+        name: p.name,
         brand,
         partNo,
-        qty: pos === '01' ? 2 : 1,
+        qty: p.qty.startsWith('2') ? 2 : 1,
         wholesalePrice,
         laborHours
       });
       renderUI();
     },
-    addFullNodeKit(pos) {
-      const node = NODES_DB.find(n => n.pos === pos);
-      if (!node) return;
-      const allPositions = [pos, ...node.companions];
-      for (const p of allPositions) {
-        if (!workOrderCart.some(c => c.pos === p)) {
-          const nObj = NODES_DB.find(x => x.pos === p);
-          if (nObj && nObj.crosses[0]) {
-            const cr = nObj.crosses.find(c => c.tier.includes('OES')) || nObj.crosses[0];
-            workOrderCart.push({
-              pos: p,
-              name: nObj.name,
-              brand: cr.brand,
-              partNo: cr.partNo,
-              qty: p === '01' ? 2 : 1,
-              wholesalePrice: Math.round(cr.warehouses[0].priceWholesale * 0.92), // 8% kit discount!
-              laborHours: nObj.laborHours
-            });
-          }
+    addFullGroupCompanionKit() {
+      const grp = getActiveGroup();
+      for (const pos of grp.companionPositions) {
+        const p = grp.parts.find(x => x.pos === pos);
+        if (p && !workOrderCart.some(w => w.partNo === p.oem || w.pos === p.pos)) {
+          const oes = p.crosses.find(c => c.tierBadge.includes('OES')) || p.crosses[0];
+          workOrderCart.push({
+            pos: p.pos,
+            group: grp.groupCode,
+            name: p.name,
+            brand: oes.brand,
+            partNo: oes.partNo,
+            qty: p.qty.startsWith('2') ? 2 : 1,
+            wholesalePrice: Math.round(oes.priceWh * 0.92),
+            laborHours: p.laborHours
+          });
         }
       }
       renderUI();
