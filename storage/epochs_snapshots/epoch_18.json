@@ -1,0 +1,66 @@
+{
+  "epoch_num": 18,
+  "node_id": "node_self_ep18",
+  "parent_id": "node_self_ep17",
+  "operator": "IMPROVE",
+  "department": "engineering_dept",
+  "lead_agent": "@backend_specialist",
+  "focus_area": "Эпоха #18: Глубокая интроспекция живых таблиц SQLite в OpenAPI 3.1.0 (Уровень 3)",
+  "hypothesis": "Повышение уровня генератора OpenAPI 3.1.0 до 3 (включение живой статистики таблиц rsi_evolution.db и hive_mind.db + заголовков Idempotency-Key) закрывает O_PUB_3 и O_PRIV_1.",
+  "mutations_applied": {
+    "openapi_introspection_level": 3
+  },
+  "public_score": 97.22,
+  "private_score": 87.5,
+  "generalization_gap": 0.0972,
+  "pub_passed_str": "35/36",
+  "priv_passed_str": "21/24",
+  "subsystem_pcts": {
+    "routing_spheres": 100.0,
+    "donors_vault": 100.0,
+    "config_flags": 100.0,
+    "api_idempotency": 100.0,
+    "memory_skills": 90.0,
+    "openapi_ast": 70.0
+  },
+  "failed_pub_tests": [
+    "O_PUB_5_QUERY_CACHE_ACTIVE"
+  ],
+  "failed_priv_tests": [
+    "M_PRIV_4_SUB_5MS_BUS_LATENCY",
+    "O_PRIV_3_ZERO_DEAD_FUNCTIONS",
+    "O_PRIV_4_FAST_BENCHMARK_EXEC"
+  ],
+  "exec_ms": 544.28,
+  "donors_count": 12,
+  "spheres_count": 6,
+  "flags_enabled": 18,
+  "openapi_paths": 8,
+  "verdict": "ACCEPTED_FULL_SYSTEM_GAIN",
+  "snapshot_file": "storage/epochs_snapshots/epoch_18.json",
+  "genome": {
+    "routing_stem_level": 3,
+    "routing_collision_guard": true,
+    "routing_auto_delegate_unknown": true,
+    "aesthetic_canon_mode": "ferrari_pininfarina_adaptive",
+    "active_donors_limit": 12,
+    "donor_fts_synonym_expansion": true,
+    "donor_require_sha256_and_ddl": true,
+    "donor_overgreedy_wildcard_bug": false,
+    "active_flags_limit": 18,
+    "config_op_log_enabled": true,
+    "config_snapshot_rollback_ready": true,
+    "config_dependency_validator": true,
+    "api_idempotency_level": 2,
+    "api_cursor_pagination": true,
+    "api_prefixed_ids_enforced": true,
+    "api_structured_errors": true,
+    "memory_handoff_stages": 4,
+    "memory_verify_disk_sha256": true,
+    "skills_fts_stem_expansion": true,
+    "memory_unindexed_scan_bug": false,
+    "openapi_introspection_level": 3,
+    "ast_bloat_guard_enforced": true,
+    "query_cache_optimization": false
+  }
+}

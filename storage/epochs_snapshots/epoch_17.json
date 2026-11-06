@@ -1,0 +1,68 @@
+{
+  "epoch_num": 17,
+  "node_id": "node_self_ep17",
+  "parent_id": "node_self_ep16",
+  "operator": "PRUNE",
+  "department": "engineering_dept",
+  "lead_agent": "@worker",
+  "focus_area": "Эпоха #17: Включение AST BloatPruner Gate (все файлы <= 800 строк, контроль McCabe CC)",
+  "hypothesis": "Включение обязательного гейта AST BloatPruner закрывает тесты O_PUB_4 и O_PUB_6, гарантируя отсутствие раздутых модулей в ядре RSI-0.",
+  "mutations_applied": {
+    "ast_bloat_guard_enforced": true
+  },
+  "public_score": 94.44,
+  "private_score": 83.33,
+  "generalization_gap": 0.1111,
+  "pub_passed_str": "34/36",
+  "priv_passed_str": "20/24",
+  "subsystem_pcts": {
+    "routing_spheres": 100.0,
+    "donors_vault": 100.0,
+    "config_flags": 100.0,
+    "api_idempotency": 100.0,
+    "memory_skills": 90.0,
+    "openapi_ast": 50.0
+  },
+  "failed_pub_tests": [
+    "O_PUB_3_OPENAPI_SQLITE_INTROSPECT",
+    "O_PUB_5_QUERY_CACHE_ACTIVE"
+  ],
+  "failed_priv_tests": [
+    "M_PRIV_4_SUB_5MS_BUS_LATENCY",
+    "O_PRIV_1_OPENAPI_31_VALID",
+    "O_PRIV_3_ZERO_DEAD_FUNCTIONS",
+    "O_PRIV_4_FAST_BENCHMARK_EXEC"
+  ],
+  "exec_ms": 530.09,
+  "donors_count": 12,
+  "spheres_count": 6,
+  "flags_enabled": 18,
+  "openapi_paths": 8,
+  "verdict": "ACCEPTED_FULL_SYSTEM_GAIN",
+  "snapshot_file": "storage/epochs_snapshots/epoch_17.json",
+  "genome": {
+    "routing_stem_level": 3,
+    "routing_collision_guard": true,
+    "routing_auto_delegate_unknown": true,
+    "aesthetic_canon_mode": "ferrari_pininfarina_adaptive",
+    "active_donors_limit": 12,
+    "donor_fts_synonym_expansion": true,
+    "donor_require_sha256_and_ddl": true,
+    "donor_overgreedy_wildcard_bug": false,
+    "active_flags_limit": 18,
+    "config_op_log_enabled": true,
+    "config_snapshot_rollback_ready": true,
+    "config_dependency_validator": true,
+    "api_idempotency_level": 2,
+    "api_cursor_pagination": true,
+    "api_prefixed_ids_enforced": true,
+    "api_structured_errors": true,
+    "memory_handoff_stages": 4,
+    "memory_verify_disk_sha256": true,
+    "skills_fts_stem_expansion": true,
+    "memory_unindexed_scan_bug": false,
+    "openapi_introspection_level": 2,
+    "ast_bloat_guard_enforced": true,
+    "query_cache_optimization": false
+  }
+}
