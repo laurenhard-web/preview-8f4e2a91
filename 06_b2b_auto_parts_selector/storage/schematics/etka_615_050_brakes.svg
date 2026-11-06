@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 265" width="100%" height="100%">
+          <defs>
+            <pattern id="cadGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+              <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(56,189,248,0.12)" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="720" height="265" fill="#061325"/>
+          <rect width="720" height="265" fill="url(#cadGrid)"/>
+          <rect x="8" y="6" width="704" height="28" rx="5" fill="#0f172a" stroke="#0284c7"/>
+          <text x="16" y="24" fill="#38bdf8" font-family="monospace" font-size="11.5" font-weight="bold">
+            📐 ЗАВОДСКОЙ ЧЕРТЕЖ УЗЛА: ETKA Группа 6 / Илл. 615-050 — Передний тормозной механизм ATE Ø312x25.1 мм (PR-1ZA): вентилируемый
+          </text>
+          
+            <!-- Isometric Technical Drawing: VAG ETKA 615-050 Ventilated Brake Disc 312x25.1 + Caliper ATE + Hub -->
+            <line x1="80" y1="160" x2="660" y2="155" stroke="#facc15" stroke-width="1.2" stroke-dasharray="6,4" opacity="0.55"/>
+            <!-- [1] Ventilated Rotor 312x25.1mm with 36 cooling vanes & 5x112 PCD -->
+            <ellipse cx="175" cy="148" rx="54" ry="76" fill="#1e293b" stroke="#94a3b8" stroke-width="2.5"/>
+            <ellipse cx="170" cy="148" rx="50" ry="72" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+            <ellipse cx="170" cy="148" rx="24" ry="34" fill="#1e293b" stroke="#cbd5e1" stroke-width="2"/>
+            <circle cx="170" cy="130" r="3.5" fill="#020617" stroke="#38bdf8"/>
+            <circle cx="184" cy="142" r="3.5" fill="#020617" stroke="#38bdf8"/>
+            <circle cx="179" cy="162" r="3.5" fill="#020617" stroke="#38bdf8"/>
+            <circle cx="161" cy="162" r="3.5" fill="#020617" stroke="#38bdf8"/>
+            <circle cx="156" cy="142" r="3.5" fill="#020617" stroke="#38bdf8"/>
+            <!-- [2] M6x16 Torx T30 Screw -->
+            <rect x="126" y="191" width="20" height="8" rx="2" fill="#facc15" stroke="#ffffff"/>
+            <!-- [3] Inner & Outer Brake Pads 160.2x64.5mm -->
+            <path d="M268,108 Q295,98 322,108 L318,144 Q295,138 272,144 Z" fill="#334155" stroke="#4ade80" stroke-width="2"/>
+            <path d="M272,150 Q298,140 326,150 L322,186 Q298,180 276,186 Z" fill="#334155" stroke="#4ade80" stroke-width="2"/>
+            <!-- [4] Electronic Wear Sensor 5G0 907 637 -->
+            <path d="M298,184 C302,205 312,212 325,215" fill="none" stroke="#facc15" stroke-width="2.5"/>
+            <!-- [5] Caliper Housing 5Q0 615 123 with Ø57mm Piston -->
+            <rect x="382" y="106" width="76" height="62" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2.2"/>
+            <circle cx="408" cy="137" r="18" fill="#0f172a" stroke="#94a3b8" stroke-width="2"/>
+            <!-- [6] Caliper Carrier Bracket 5Q0 615 125 A -->
+            <path d="M475,112 L522,112 L522,182 L475,182 L475,164 L504,164 L504,130 L475,130 Z" fill="#334155" stroke="#cbd5e1" stroke-width="2"/>
+            <!-- [7] Guide Pins & Boots 8V0 698 647 -->
+            <rect x="435" y="185" width="38" height="8" rx="3" fill="#4ade80"/>
+            <rect x="435" y="197" width="38" height="8" rx="3" fill="#4ade80"/>
+            <!-- [8] Wheel Bearing Hub Assembly 5Q0 407 621 B -->
+            <circle cx="612" cy="165" r="38" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5"/>
+            <circle cx="612" cy="165" r="16" fill="#020617" stroke="#facc15" stroke-width="2"/>
+            
+          
+                <g class="elcats-hotspot" data-pos="1" style="cursor:pointer;">
+                  <line x1="175" y1="148" x2="125" y2="72" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="3,2"/>
+                  <circle cx="175" cy="148" r="4" fill="#facc15" stroke="#020617" stroke-width="1.5"/>
+                  <rect x="107" y="59" width="36" height="26" rx="5" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+                  <text x="125" y="76" text-anchor="middle" fill="#fde047" font-family="monospace" font-size="12" font-weight="bold">[1]</text>
+                </g>
+                
+                <g class="elcats-hotspot" data-pos="2" style="cursor:pointer;">
+                  <line x1="136" y1="195" x2="68" y2="228" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="3,2"/>
+                  <circle cx="136" cy="195" r="4" fill="#facc15" stroke="#020617" stroke-width="1.5"/>
+                  <rect x="50" y="215" width="36" height="26" rx="5" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+                  <text x="68" y="232" text-anchor="middle" fill="#fde047" font-family="monospace" font-size="12" font-weight="bold">[2]</text>
+                </g>
+                
+                <g class="elcats-hotspot" data-pos="3" style="cursor:pointer;">
+                  <line x1="295" y1="132" x2="295" y2="58" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="3,2"/>
+                  <circle cx="295" cy="132" r="4" fill="#facc15" stroke="#020617" stroke-width="1.5"/>
+                  <rect x="277" y="45" width="36" height="26" rx="5" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+                  <text x="295" y="62" text-anchor="middle" fill="#fde047" font-family="monospace" font-size="12" font-weight="bold">[3]</text>
+                </g>
+                
+                <g class="elcats-hotspot" data-pos="4" style="cursor:pointer;">
+                  <line x1="298" y1="188" x2="308" y2="232" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="3,2"/>
+                  <circle cx="298" cy="188" r="4" fill="#facc15" stroke="#020617" stroke-width="1.5"/>
+                  <rect x="290" y="219" width="36" height="26" rx="5" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+                  <text x="308" y="236" text-anchor="middle" fill="#fde047" font-family="monospace" font-size="12" font-weight="bold">[4]</text>
+                </g>
+                
+                <g class="elcats-hotspot" data-pos="5" style="cursor:pointer;">
+                  <line x1="418" y1="135" x2="438" y2="58" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="3,2"/>
+                  <circle cx="418" cy="135" r="4" fill="#facc15" stroke="#020617" stroke-width="1.5"/>
+                  <rect x="420" y="45" width="36" height="26" rx="5" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+                  <text x="438" y="62" text-anchor="middle" fill="#fde047" font-family="monospace" font-size="12" font-weight="bold">[5]</text>
+                </g>
+                
+                <g class="elcats-hotspot" data-pos="6" style="cursor:pointer;">
+                  <line x1="495" y1="145" x2="548" y2="62" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="3,2"/>
+                  <circle cx="495" cy="145" r="4" fill="#facc15" stroke="#020617" stroke-width="1.5"/>
+                  <rect x="530" y="49" width="36" height="26" rx="5" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+                  <text x="548" y="66" text-anchor="middle" fill="#fde047" font-family="monospace" font-size="12" font-weight="bold">[6]</text>
+                </g>
+                
+                <g class="elcats-hotspot" data-pos="7" style="cursor:pointer;">
+                  <line x1="452" y1="192" x2="475" y2="232" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="3,2"/>
+                  <circle cx="452" cy="192" r="4" fill="#facc15" stroke="#020617" stroke-width="1.5"/>
+                  <rect x="457" y="219" width="36" height="26" rx="5" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+                  <text x="475" y="236" text-anchor="middle" fill="#fde047" font-family="monospace" font-size="12" font-weight="bold">[7]</text>
+                </g>
+                
+                <g class="elcats-hotspot" data-pos="8" style="cursor:pointer;">
+                  <line x1="612" y1="165" x2="655" y2="225" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="3,2"/>
+                  <circle cx="612" cy="165" r="4" fill="#facc15" stroke="#020617" stroke-width="1.5"/>
+                  <rect x="637" y="212" width="36" height="26" rx="5" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+                  <text x="655" y="229" text-anchor="middle" fill="#fde047" font-family="monospace" font-size="12" font-weight="bold">[8]</text>
+                </g>
+                
+        </svg>

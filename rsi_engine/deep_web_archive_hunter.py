@@ -22,7 +22,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-DEFAULT_DB_PATH = Path("/shared/user/.gemini/orchestrator/rsi_engine/rsi_evolution.db")
+DEFAULT_DB_PATH = Path("/shared/user/.gemini/orchestrator/rsi_evolution.db")
 
 
 class DeepWebArchiveHunter:

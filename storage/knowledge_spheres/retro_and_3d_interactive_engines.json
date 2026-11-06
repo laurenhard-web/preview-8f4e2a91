@@ -1,0 +1,34 @@
+{
+  "sphere_id": "retro_and_3d_interactive_engines",
+  "sphere_type": "interactive_simulation",
+  "title_ru": "Интерактивные 2D/3D Движки и Физические Симуляторы (NES Battle City, Wolf3D 1992 VGA, 3D Boids)",
+  "summary_ru": "Математика коллизий (Swept AABB, Anti-Jam 16x16 sub-tile grid), DDA Raycasting с Z-буфером, ручное управление без самопроизвольных ботов (aiBot=false) и захват фокуса клавиатуры в iframe.",
+  "keywords": [
+    "игры",
+    "танчики",
+    "wolfenstein",
+    "марио",
+    "аквариум",
+    "рейкастинг",
+    "коллизии",
+    "симулятор"
+  ],
+  "canonical_sources": [
+    {
+      "title": "id Software Wolfenstein 3D (1992) & Namco Battle City (1990) Technical Architecture",
+      "url": "https://github.com/id-Software/wolf3d",
+      "core_thesis": "Перпендикулярная коррекция лучей DDA, 1D Z-буфер спрайтов и строгий ручной ввод со старта."
+    }
+  ],
+  "mandatory_domain_rules": [
+    "[ENGINE-01] aiBot = false по умолчанию; мгновенный отклик на клавиатуру (Arrow/WASD) и пульт удержания holdInput.",
+    "[ENGINE-02] Запрет на безусловный сдвиг координат snapX/snapY до проверки коллизии."
+  ],
+  "required_db_tables": [
+    "simulation_benchmarks",
+    "input_probe_logs"
+  ],
+  "required_storage_artifacts": [
+    "storage/knowledge_spheres/retro_and_3d_interactive_engines.json"
+  ]
+}

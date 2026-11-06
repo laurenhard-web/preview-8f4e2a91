@@ -1,0 +1,46 @@
+{
+  "sphere_id": "iconic_design_aesthetics_ferrari_pininfarina",
+  "sphere_type": "aesthetic_and_design_canon",
+  "title_ru": "Эстетика, Пропорции и Доклады Дизайнеров Ferrari (Pininfarina & Flavio Manzoni Centro Stile)",
+  "summary_ru": "Библиотека эстетических обоснований, статей и принципов формообразования шеф-дизайнеров Ferrari: Баттиста и Серджо Пининфарина, Леонардо Фиораванти (250 GT, 308, Testarossa, F40) и Флавио Манцони (Centro Stile Ferrari — LaFerrari, SF90, 296 GTB, Daytona SP3, F80).",
+  "keywords": [
+    "дизайн",
+    "эстетика",
+    "феррари",
+    "ferrari",
+    "pininfarina",
+    "flavio manzoni",
+    "красота",
+    "пропорции",
+    "стиль",
+    "интерфейс",
+    "премиум",
+    "доклады",
+    "обоснование"
+  ],
+  "canonical_sources": [
+    {
+      "title": "Flavio Manzoni (Chief Design Officer, Ferrari Centro Stile) — 'Form, Tension & Slingshot Effect' (Forbes / Designboom / Ferrari Magazine)",
+      "url": "https://www.ferrari.com/magazine/articles/designing-the-296-gtb-with-flavio-manzoni",
+      "core_thesis": "1) Эффект натянутой тетивы ('Slingshot Effect' / 'Linea Tesa'): арки и линии кузова работают в визуальном натяжении, оптически смещая объем вперед, словно зверь перед прыжком. 2) Бесшовная функциональная скульптура ('Seamless Functional Integration'): в отличие от болидов F1 с нарочитыми антикрыльями, на дорожных Ferrari аэродинамика прячется внутрь чистых скульптурных поверхностей. 3) Плотность мысли на миллиметр ('Density of Design'): ни одной декоративной фальш-детали — каждая грань работает."
+    },
+    {
+      "title": "Battista & Sergio Pininfarina / Leonardo Fioravanti — 'Purity, Elegance, Innovation' (London Design Museum: Ferrari Under the Skin & MoMA)",
+      "url": "https://designmuseum.org/asset/download?id=880ceeed-540c-42de-844c-2eae85ba80ca",
+      "core_thesis": "Триада Pininfarina: Чистота поверхности (Purity), Гармония пропорций без излишеств (Elegance without excess) и Инженерная честность материала (Superplastic aluminum / Carbon / Open-gate mechanical shifter)."
+    }
+  ],
+  "mandatory_domain_rules": [
+    "[AESTHETIC-FERRARI-01] Принцип 'Eyes on the Road, Hands on the Wheel': главный рабочий инструмент (чертеж, телеметрия, тахометр/ключевой график) всегда в центре оптического фокуса, второстепенные настройки убраны с траектории взгляда.",
+    "[AESTHETIC-FERRARI-02] Колористика Maranello Cockpit: глубокий матовый карбон (#070b14 / #0f172a) с четкими функциональными акцентами Rosso Corsa (#ef4444) для критических действий, Giallo Modena (#facc15) для главного фокуса/выноски и Grigio Titanio для технических сеток.",
+    "[AESTHETIC-FERRARI-03] Запрет на 'визуальный пластик и бутафорию': каждая кнопка, шкала и цифра обязана иметь реальную физическую/инженерную функцию (никаких пустых декоративных виджетов)."
+  ],
+  "required_db_tables": [
+    "design_canons",
+    "aesthetic_reviews",
+    "color_and_proportion_tokens"
+  ],
+  "required_storage_artifacts": [
+    "storage/knowledge_spheres/iconic_design_aesthetics_ferrari_pininfarina.json"
+  ]
+}

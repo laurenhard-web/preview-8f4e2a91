@@ -231,34 +231,41 @@ class SkillRegistryDatabase:
                 ).fetchall()
         return [dict(r) for r in rows]
 
-    def enforce_fullstack_provisioning_plan(self, domain_query: str) -> dict[str, Any]:
+    def enforce_fullstack_provisioning_plan(
+        self,
+        domain_query: str,
+        aesthetic_preference: str = "iconic_design_aesthetics_ferrari_pininfarina",
+    ) -> dict[str, Any]:
         """
-        Prevents 'Toy Frontend Replica' failures by returning the mandatory full-stack
-        infrastructure manifest (Database + File Storage + Image Storage + PDF Catalogs + Web/Deep-Archive Research).
+        Dynamic Multi-Sphere Provisioning & Routing Plan:
+        Uses DomainKnowledgeLibrary (`domain_spheres_catalog` + `domain_spheres_fts`) to select
+        or delegate the appropriate Subject Matter Sphere (Railway, Traffic Law/GIBDD, Culinary,
+        Auto Parts, etc.) paired with an Aesthetic Canon Sphere (e.g. Ferrari / Pininfarina).
         """
+        if __package__ in (None, ""):
+            import sys
+            sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+            from rsi_engine.domain_library_router import DomainKnowledgeLibrary
+        else:
+            from .domain_library_router import DomainKnowledgeLibrary
+
+        lib = DomainKnowledgeLibrary(self.db_path)
+        lib.sync_seed_spheres()
+        route = lib.route_project_contour(domain_query, aesthetic_preference=aesthetic_preference)
         matched = self.search_skills(domain_query, limit=10)
+        primary_sp = route.get("primary_domain_sphere", {})
+        aesthetic_sp = route.get("aesthetic_design_sphere", {})
         return {
             "domain_query": domain_query,
+            "routing_mode": route.get("routing_mode"),
+            "selected_domain_sphere": primary_sp.get("title_ru", domain_query),
+            "selected_aesthetic_canon": aesthetic_sp.get("title_ru", aesthetic_preference),
             "mandatory_capabilities_activated": [c["skill_id"] for c in MANDATORY_ENTERPRISE_CAPABILITIES],
             "matched_skills_from_db": [m["skill_id"] for m in matched],
-            "required_infrastructure_layers": {
-                "1_deep_web_and_archive_scraping": (
-                    "Fetch & verify real factory OEM part numbers, dimensions, and exploded assembly callouts "
-                    "from Amayama EPC, Skoda-Parts ETKA, Autoparts-24, Polo.blue, and GitHub TecDoc SQL schemas."
-                ),
-                "2_relational_database": (
-                    "Create real SQLite3 database (storage/db/auto_parts_tecdoc.sqlite3) with WAL + FTS5 search "
-                    "across vehicles, assembly_groups, elcats_callouts, oem_parts, cross_analogs, media_files, pdf_catalogs."
-                ),
-                "3_file_and_image_storage": (
-                    "Create structured disk storage: storage/schematics/ (SVG/PNG high-precision technical blueprints), "
-                    "storage/images/ (downloaded & verified product photos + technical spec cards)."
-                ),
-                "4_pdf_catalog_engine": (
-                    "Generate real binary .pdf OEM Parts Catalogs (storage/pdf_catalogs/*.pdf) with tables of OEM numbers, "
-                    "PR-codes, torque specs, and downloadable links."
-                ),
-            },
+            "domain_rules_locked": primary_sp.get("mandatory_rules", []),
+            "aesthetic_rules_locked": aesthetic_sp.get("mandatory_rules", []),
+            "required_db_tables": primary_sp.get("required_db_tables", []),
+            "canonical_sources": primary_sp.get("canonical_sources", []),
         }
 
 

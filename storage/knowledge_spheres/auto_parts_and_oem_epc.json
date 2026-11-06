@@ -1,0 +1,42 @@
+{
+  "sphere_id": "auto_parts_and_oem_epc",
+  "sphere_type": "engineering_and_industry",
+  "title_ru": "Заводские Каталоги Автозапчастей (VAG ETKA / Toyota Amayama / Elcats / Exist / Autodoc)",
+  "summary_ru": "Промышленный подбор автозапчастей по VIN и PR-кодам комплектации, двухоконные чертежи узлов с выносками [1]..[10], цепочки заводских ревизий OEM и матрица кросс-аналогов OES конвейера / Aftermarket.",
+  "keywords": [
+    "автозапчасти",
+    "каталог",
+    "oem",
+    "артикул",
+    "etka",
+    "amayama",
+    "elcats",
+    "exist",
+    "autodoc",
+    "vin",
+    "сто"
+  ],
+  "canonical_sources": [
+    {
+      "title": "VAG ETKA & Skoda-Parts / Autoparts-24 / Amayama Toyota EPC",
+      "url": "https://www.skoda-parts.com/spare-part/5q0615301f-front-brake-disc-312x25-skoda-23770.html",
+      "core_thesis": "100% верификация заводских артикулов, чертежных размеров, весов и замен OEM через первичные каталоги."
+    }
+  ],
+  "mandatory_domain_rules": [
+    "[AUTOPARTS-01] Двухоконная связка интерактивного чертежа узла с выносками [1]..[10] и ведомости деталей SQLite.",
+    "[AUTOPARTS-02] Разделение выдачи на Запрошенный OEM, Официальную замену производителя и OES Поставщика конвейера."
+  ],
+  "required_db_tables": [
+    "vehicles",
+    "catalog_groups",
+    "scheme_callouts",
+    "cross_analogs",
+    "media_storage_index",
+    "parts_fts"
+  ],
+  "required_storage_artifacts": [
+    "storage/db/auto_parts_tecdoc.sqlite3",
+    "storage/pdf_catalogs/VAG_ETKA_615_050_Brakes_Catalog.pdf"
+  ]
+}
