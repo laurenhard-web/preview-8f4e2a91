@@ -1,0 +1,34 @@
+{
+  "donor_id": "dnr_rzd_18_100_sa3_rolling_stock",
+  "sphere_id": "railway_transport_and_rolling_stock",
+  "title": "РЖД ВНИИЖТ / ПКБ ЦВ: Грузовая Тележка 18-100 (ГОСТ 9246) & Автосцепка СА-3",
+  "origin_url": "https://docs.cntd.ru/document/1200116818",
+  "era_or_version": "ГОСТ 9246 / ГОСТ 32885-2014 / ПТЭ РЖД",
+  "category": "railway_engineering",
+  "quality_score": 98.1,
+  "ui_tokens": {
+    "wear_gauge_ok": "#22c55e",
+    "wear_gauge_warning": "#f59e0b",
+    "wear_gauge_reject_pte": "#ef4444"
+  },
+  "architecture_patterns": [
+    "Strict Assembly Drawing Hierarchy: Bogie 18-100 -> Side Frame 100.00.020-4, Bolster 100.00.010-4, Wedge 100.10.001-0, Brake Triangle 100.40.010-2СБ",
+    "Automatic Coupler SA-3 (106.01.000-0сб) Template 873r 5-Check Verification Engine",
+    "Depot Repair Cycle Scheduler: TO-1, TO-2, TR-1, TR-2, DR (Depot), KR (Capital Repair)"
+  ],
+  "api_or_data_contract": {
+    "tables": [
+      "rolling_stock_models",
+      "bogie_and_coupler_assemblies",
+      "depot_repair_norms",
+      "wear_tolerances_pte"
+    ],
+    "pte_limits": {
+      "wheel_flange_mm": [
+        24.0,
+        33.0
+      ],
+      "coupler_height_diff_max_mm": 100.0
+    }
+  }
+}

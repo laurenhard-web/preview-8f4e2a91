@@ -1,0 +1,49 @@
+{
+  "donor_id": "dnr_stripe_api_gold_standard",
+  "sphere_id": "core_api_and_platform_architecture",
+  "title": "Stripe API Gold Standard (Idempotency, Cursor Pagination, Prefixed IDs)",
+  "origin_url": "https://docs.stripe.com/api/idempotent_requests",
+  "era_or_version": "Stripe API 2026-11-05",
+  "category": "api_architecture",
+  "quality_score": 99.2,
+  "ui_tokens": {
+    "three_column_docs": true,
+    "interactive_curl_runner": true,
+    "prefixed_object_ids": [
+      "sph_",
+      "dnr_",
+      "flg_",
+      "cmp_",
+      "nod_",
+      "ord_"
+    ]
+  },
+  "architecture_patterns": [
+    "Prefixed Human-Readable Object IDs (dnr_*, sph_*, flg_*, ord_*) for zero-ambiguity debugging",
+    "Idempotency-Key HTTP Header with 24h SQLite WAL atomic lock to prevent duplicate mutations",
+    "Cursor-Based Pagination (starting_after, limit, has_more) instead of fragile offset pagination",
+    "Date-Based API Versioning (RSI-Version: 2026-11-05) with Transformative Gatekeeper upgrades",
+    "Expandable Nested Objects (?expand[]=sphere&expand[]=donors) in single roundtrip",
+    "Actionable Error Envelopes (error.type, error.code, error.message, error.param, error.doc_url)"
+  ],
+  "api_or_data_contract": {
+    "headers": [
+      "Idempotency-Key",
+      "RSI-Version",
+      "X-Request-Id"
+    ],
+    "list_envelope": {
+      "object": "list",
+      "data": [],
+      "has_more": false,
+      "next_cursor": null
+    },
+    "error_envelope": {
+      "error": {
+        "type": "invalid_request_error",
+        "code": "...",
+        "message": "..."
+      }
+    }
+  }
+}

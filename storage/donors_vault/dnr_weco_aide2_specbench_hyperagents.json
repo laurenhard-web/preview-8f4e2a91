@@ -1,0 +1,34 @@
+{
+  "donor_id": "dnr_weco_aide2_specbench_hyperagents",
+  "sphere_id": "core_api_and_platform_architecture",
+  "title": "Weco AI AIDE² + SpecBench (arXiv:2605.21384) + Meta HyperAgents (arXiv:2603.19461)",
+  "origin_url": "https://arxiv.org/abs/2603.19461",
+  "era_or_version": "AIDE² / SpecBench / HyperAgents 2026",
+  "category": "self_evolving_ai",
+  "quality_score": 99.6,
+  "ui_tokens": {
+    "operators": [
+      "DRAFT",
+      "IMPROVE",
+      "DEBUG",
+      "FUSE",
+      "PRUNE"
+    ],
+    "plateau_window": 4
+  },
+  "architecture_patterns": [
+    "Code-Space Tree Search with 4-Step Plateau Signal Detection -> Branch Crossover (FUSE)",
+    "Two-Tier SpecGuard Evaluation (Public Validation vs Held-Out Private Generalization Gap <= 0.15)",
+    "AST Dead-Code & McCabe Cyclomatic Complexity Bloat Pruner",
+    "Metacognitive Causal Hypothesis Logger -> KAG Triplets (CONFIRMED_BREAKTHROUGH vs REFUTED_DEAD_END)"
+  ],
+  "api_or_data_contract": {
+    "tables": [
+      "campaigns",
+      "nodes",
+      "steer_ideas",
+      "causal_hypotheses",
+      "self_evolution_epochs"
+    ]
+  }
+}

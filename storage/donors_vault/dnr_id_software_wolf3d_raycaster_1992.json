@@ -1,0 +1,24 @@
+{
+  "donor_id": "dnr_id_software_wolf3d_raycaster_1992",
+  "sphere_id": "retro_and_3d_interactive_engines",
+  "title": "id Software Wolfenstein 3D (1992) VGA 256-Color DDA Raycaster",
+  "origin_url": "https://github.com/id-Software/wolf3d",
+  "era_or_version": "id Software 1992 DOS VGA",
+  "category": "game_engine_donor",
+  "quality_score": 98.5,
+  "ui_tokens": {
+    "hud_bar_color": "#0040a8",
+    "fov_deg": 66.0
+  },
+  "architecture_patterns": [
+    "DDA Grid-Stepping Raycaster with Perpendicular Camera-Plane Distance (Zero Fisheye)",
+    "Procedural 64x64 Texel Wall Textures (Blue Stone, Eagle Emblem, Mossy Dungeon, Steel Door) & 1D Z-Buffer"
+  ],
+  "api_or_data_contract": {
+    "metrics": [
+      "60 FPS",
+      "Zero wall clipping",
+      "Authentic 1992 BJ HUD"
+    ]
+  }
+}

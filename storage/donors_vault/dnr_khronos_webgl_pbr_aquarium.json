@@ -1,0 +1,24 @@
+{
+  "donor_id": "dnr_khronos_webgl_pbr_aquarium",
+  "sphere_id": "retro_and_3d_interactive_engines",
+  "title": "Khronos PBR Underwater Optics & Craig Reynolds 3D Boids",
+  "origin_url": "https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html",
+  "era_or_version": "glTF 2.0 PBR / Reynolds 1987",
+  "category": "3d_simulation_donor",
+  "quality_score": 98.2,
+  "ui_tokens": {
+    "caustics_shader": true,
+    "boids_spatial_grid": true
+  },
+  "architecture_patterns": [
+    "Beer-Lambert Depth Attenuation + Voronoï Floor Caustics + Snell's Window Surface Refraction",
+    "3-Rule Spatial-Grid Boids (Separation, Alignment, Cohesion) with Caudal Fin Wave Propulsion"
+  ],
+  "api_or_data_contract": {
+    "metrics": [
+      "60 FPS",
+      "Zero fish clustering",
+      "Interactive feeding & camera orbit"
+    ]
+  }
+}

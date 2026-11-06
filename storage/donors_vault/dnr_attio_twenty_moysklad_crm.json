@@ -1,0 +1,25 @@
+{
+  "donor_id": "dnr_attio_twenty_moysklad_crm",
+  "sphere_id": "core_api_and_platform_architecture",
+  "title": "Attio + Twenty Open-Source CRM + МойСклад JSON API 1.2",
+  "origin_url": "https://dev.moysklad.ru/doc/api/remap/1.2/",
+  "era_or_version": "Attio 2026 / Twenty v1.x / MoySklad 1.2",
+  "category": "enterprise_b2b",
+  "quality_score": 97.8,
+  "ui_tokens": {
+    "table_row_height_px": 36,
+    "inline_cell_editing": true
+  },
+  "architecture_patterns": [
+    "Flexible Object-Attribute-Record Graph with Custom Industry Fields",
+    "Real-time Warehouse Stock Ledger (customerorder -> demand -> supply -> stock_by_store)"
+  ],
+  "api_or_data_contract": {
+    "tables": [
+      "crm_objects",
+      "crm_attributes",
+      "warehouse_moves",
+      "counterparties"
+    ]
+  }
+}

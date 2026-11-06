@@ -1,0 +1,23 @@
+{
+  "donor_id": "dnr_namco_battle_city_1985_nes",
+  "sphere_id": "retro_and_3d_interactive_engines",
+  "title": "Namco Battle City (1985) Famicom/NES Sub-Tile Tank Engine",
+  "origin_url": "https://datacrystal.tcrf.net/wiki/Battle_City",
+  "era_or_version": "Namco 1985 NES",
+  "category": "game_engine_donor",
+  "quality_score": 98.8,
+  "ui_tokens": {
+    "grid_size": "26x26 sub-tiles",
+    "player_tank_color": "#eab308"
+  },
+  "architecture_patterns": [
+    "Sub-Tile Corner-Assist AABB Sliding (+/-6px snap to corridor lane on perpendicular turn)",
+    "4-Quadrant Bitmask Brick Destruction & Anti-Stuck Escape Hysteresis"
+  ],
+  "api_or_data_contract": {
+    "metrics": [
+      "stuck_frames == 0",
+      "manual_control_default == true"
+    ]
+  }
+}

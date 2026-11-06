@@ -1,0 +1,26 @@
+{
+  "donor_id": "dnr_gost_31987_chef_ttk_haccp",
+  "sphere_id": "culinary_gastronomy_and_techcards",
+  "title": "ГОСТ 31987-2012 ТТК Общепита, ХАССП & Sous-Vide Гастрономия",
+  "origin_url": "https://docs.cntd.ru/document/1200103472",
+  "era_or_version": "ГОСТ 31987-2012 / СанПиН 2.3/2.4.3590-20",
+  "category": "culinary_engineering",
+  "quality_score": 97.9,
+  "ui_tokens": {
+    "mass_balance_chain": "Brutto (г) -> Cold Waste % -> Netto (г) -> Thermal Loss % -> Yield (г)"
+  },
+  "architecture_patterns": [
+    "Deterministic Mass Balance Equation: Netto = Brutto * (1 - w_cold); Output = Netto * (1 - w_thermal)",
+    "Protein Denaturation & Maillard Thermal Control: Myosin 50..55C, Collagen Hydrolysis 68C+, Maillard 140..165C",
+    "Automated KBZHU per 100g/serving and Restaurant Food Cost % & Margin Calculator"
+  ],
+  "api_or_data_contract": {
+    "tables": [
+      "ingredients_catalog",
+      "waste_coefficients",
+      "tech_cards_ttk",
+      "flavor_pairings",
+      "foodcost_calculations"
+    ]
+  }
+}

@@ -1,0 +1,94 @@
+# Hive Mind & RSI-0 v9 Unified Orchestrator Configuration (config.toml)
+[general]
+mode = "full"                # "lite" (экономия квоты) или "full" (полный цикл 20-эпоховой эволюции и судей)
+version = "9.0.0"            # версия ядра RSI-0 Meta-Evolution
+max_retries = 3              # максимум попыток самоисправления (RCA) до статуса blocked
+recall_top_k = 10            # сколько записей возвращать при recall из KAG + FTS5
+dedup_threshold = 0.85       # порог сходства (trigram Jaccard) для слияния дублей
+require_recall_lock = true   # без recall_id судья ставит 0 баллов
+
+[rsi_engine]
+unified_db_path = "/shared/user/.gemini/orchestrator/rsi_evolution.db"
+hive_db_path = "/shared/user/.gemini/orchestrator/hive_mind.db"
+default_aesthetic_canon = "iconic_design_aesthetics_ferrari_pininfarina"
+plateau_window = 4           # окно детекции плато AIDE² перед принудительным FUSE веток
+max_hack_gap = 0.15          # максимально допустимый разрыв Public vs Private SpecGuard
+max_cyclomatic_complexity = 12
+max_file_lines = 800
+self_evolution_epochs = 20
+
+[feature_flags]
+flg_dual_axis_sphere_routing = true
+flg_ferrari_centro_stile_canon = true
+flg_architect_auto_delegation = true
+flg_donor_vault_mandatory_lock = true
+flg_three_tier_deep_archive_search = true
+flg_sqlite_fts5_skill_routing = true
+flg_inter_agent_memory_bus_wal = true
+flg_specbench_two_tier_antihack = true
+flg_ast_bloat_pruner_gate = true
+flg_kag_causal_distillation = true
+flg_stripe_idempotency_key_lock = true
+flg_linear_optimistic_op_log = true
+flg_real_binary_pdf_generation = true
+flg_interactive_svg_callouts = true
+flg_headless_chromium_vision_gate = true
+flg_manual_control_default_games = true
+flg_openapi_31_auto_introspection = true
+flg_hot_reload_config_and_rollback = true
+
+[donor_vault]
+vault_dir = "/home/antigravity/test_benchmarks/storage/donors_vault"
+min_donors_per_sphere = 2
+require_sha256_verification = true
+
+[api_gateway]
+api_version = "2026-11-05"
+openapi_version = "3.1.0"
+admin_port = 8090
+idempotency_ttl_hours = 24
+cursor_default_limit = 25
+prefix_object_ids = true
+
+[judge]
+pass_threshold = 80          # минимальный проходной балл судьи (повышен с 75 до 80 в v9)
+golden_threshold = 88        # ≥88 → 01_GOLDEN_SOLUTIONS
+graveyard_threshold = 50     # <50 → 02_GRAVEYARD_MISTAKES
+
+[feedback]
+praise_delta = 15            # 👍 Похвалить: +15 к рейтингу агента
+remark_delta = 0             # ⚠️ Замечание: 0 к рейтингу + обязательный пункт в чек-лист (directives)
+scold_delta = -25            # 👎 Разнос: -25 к рейтингу + запись анти-паттерна в кладбище
+
+[ranking]
+# Композитный скор: 0.5*rel + 0.3*recency + 0.2*importance
+weight_relevance = 0.50
+weight_recency = 0.30
+weight_importance = 0.20
+recency_half_life_days = 14.0
+
+[autopilot]
+split_complexity_min = 6     # задачи со сложностью ≥6 получают needs_split = 1 и требуют декомпозиции
+
+[skills_mapping]
+code = ["kag-memory-lock", "fullstack-db-storage-pdf-architect", "test-driven-development", "code-review-and-quality", "api-and-interface-design", "security-and-hardening"]
+research = ["kag-memory-lock", "deep-web-and-archive-researcher", "architecture-research", "era-web-researcher", "api-and-interface-design"]
+design = ["kag-memory-lock", "outside-in-visual-architect", "generative_ui", "web-app-development", "authentic-era-auditor"]
+ops = ["kag-memory-lock", "systematic-debugging", "debugging-and-error-recovery", "ci-cd-and-automation", "system-informer"]
+audit = ["memory-auditor", "strict-judge-rubric", "specbench-eval-guard", "evolution-bloat-pruner", "code-review-and-quality"]
+plan = ["task-autopilot", "inter-agent-memory-orchestrator", "aide-tree-explorer", "kag-memory-lock", "api-and-interface-design"]
+
+[departments]
+plan = "autopilot_planner"
+research = "research_analyst"
+code = "backend_specialist"
+design = "frontend_designer"
+ops = "devops_sre"
+audit = "strict_judge"
+
+planning_dept = ["autopilot_planner", "research_analyst"]
+research_dept = ["research_analyst", "autopilot_planner"]
+engineering_dept = ["worker", "backend_specialist"]
+design_dept = ["frontend_designer"]
+ops_dept = ["devops_sre"]
+qa_memory_dept = ["strict_judge", "memory_auditor"]

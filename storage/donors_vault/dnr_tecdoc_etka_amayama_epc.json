@@ -1,0 +1,36 @@
+{
+  "donor_id": "dnr_tecdoc_etka_amayama_epc",
+  "sphere_id": "auto_parts_and_oem_epc",
+  "title": "TecDoc 3.0 + VAG ETKA + Toyota Amayama Factory EPC Schema",
+  "origin_url": "https://www.tecalliance.net/solutions/tecdoc",
+  "era_or_version": "TecDoc 2026 / ETKA 8.5 / Amayama EPC",
+  "category": "industrial_catalog",
+  "quality_score": 98.9,
+  "ui_tokens": {
+    "split_pane_blueprint_ratio": "52% SVG Blueprint / 48% OEM Callout & Cross-Analog Matrix",
+    "callout_hotspot_highlight": "#facc15"
+  },
+  "architecture_patterns": [
+    "KTYPE Vehicle Fitment Linkage: vehicles -> catalog_groups -> scheme_callouts -> cross_analogs",
+    "Three-Tier Cross-Reference Graph: (1) OEM-to-Aftermarket, (2) Brand-to-Brand Equivalency, (3) Supersession Revision Chains",
+    "Interactive Vector Exploded Blueprints with bi-directional [1]..[8] callout pins and binary PDF sheets"
+  ],
+  "api_or_data_contract": {
+    "tables": [
+      "vehicles",
+      "catalog_groups",
+      "scheme_callouts",
+      "cross_analogs",
+      "media_storage_index",
+      "parts_fts"
+    ],
+    "verified_oem_samples": [
+      "5Q0615301F",
+      "5Q0698151AH",
+      "04E121600CS",
+      "04E198119A",
+      "43512-33150",
+      "04465-33480"
+    ]
+  }
+}

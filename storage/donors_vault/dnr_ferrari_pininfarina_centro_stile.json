@@ -1,0 +1,32 @@
+{
+  "donor_id": "dnr_ferrari_pininfarina_centro_stile",
+  "sphere_id": "iconic_design_aesthetics_ferrari_pininfarina",
+  "title": "Ferrari Centro Stile (Flavio Manzoni) & Pininfarina Design System",
+  "origin_url": "https://www.ferrari.com/en-EN/magazine/articles/design-philosophy-centro-stile",
+  "era_or_version": "Pininfarina 1952–2026 / Ferrari Centro Stile v9",
+  "category": "aesthetic_canon",
+  "quality_score": 99.4,
+  "ui_tokens": {
+    "bg_carbon": "#070b14",
+    "surface_alcantara": "#0f172a",
+    "accent_rosso_corsa": "#ef4444",
+    "accent_giallo_modena": "#facc15",
+    "accent_titanium_cyan": "#38bdf8",
+    "border_tension_line": "#1e293b",
+    "wheelbase_to_length_ratio": 0.568,
+    "cockpit_forward_cab_ratio": 0.442
+  },
+  "architecture_patterns": [
+    "Slingshot Effect (Linea Tesa): High-tension bezier curves that visually propel the layout forward",
+    "Seamless Aerodynamic Sculpture: Every panel, duct, and UI toolbar serves a direct functional purpose",
+    "Eyes on the Road, Hands on the Wheel: Primary blueprint/canvas occupies 70%+ of central viewport; controls grouped on steering cluster",
+    "Density of Design (Flavio Manzoni): Concise multi-layered telemetry badges without decorative bloat"
+  ],
+  "api_or_data_contract": {
+    "aesthetic_gate_check": [
+      "contrast_ratio >= 7.0 (WCAG AAA on carbon background)",
+      "zero_placeholder_boxes == true",
+      "callout_badge_readability == 100%"
+    ]
+  }
+}
