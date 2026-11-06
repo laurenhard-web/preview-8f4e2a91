@@ -391,6 +391,78 @@ class ConfigAndFlagManager:
             )
             return result
 
+    def restore_snapshot(self, snapshot_id: str, actor: str = "@strict_judge") -> dict[str, Any]:
+        """Atomically restore feature_flags_state from a saved epoch snapshot and log to sync_op_log."""
+        now = dt.datetime.now(dt.timezone.utc).isoformat()
+        with self._conn() as conn:
+            row = conn.execute(
+                "SELECT * FROM config_snapshots WHERE snapshot_id = ?", (snapshot_id,)
+            ).fetchone()
+            if not row:
+                return {"restored": False, "error": f"Snapshot {snapshot_id} not found"}
+            saved_flags = json.loads(row["flags_json"])
+            for f in saved_flags:
+                conn.execute(
+                    "UPDATE feature_flags_state SET enabled = ?, updated_by = ?, updated_at = ? WHERE flag_key = ?",
+                    (int(f.get("enabled", 1)), actor, now, f["flag_key"]),
+                )
+            cur = conn.execute(
+                """
+                INSERT INTO sync_op_log (
+                    actor_agent, op_type, target_key, prev_value_json, new_value_json, created_at
+                ) VALUES (?, 'SNAPSHOT_ROLLBACK', ?, '{}', ?, ?)
+                """,
+                (actor, snapshot_id, json.dumps({"epoch_num": row["epoch_num"]}), now),
+            )
+            return {
+                "restored": True,
+                "snapshot_id": snapshot_id,
+                "epoch_num": row["epoch_num"],
+                "seq_id": cur.lastrowid,
+                "sha256_hash": row["sha256_hash"],
+            }
+
+    def validate_flag_dependencies(self, active_flags: dict[str, bool] | None = None) -> dict[str, Any]:
+        """Verify dependency rules between feature flags (e.g. OpenAPI auto-introspection requires SQLite FTS5)."""
+        if active_flags is None:
+            active_flags = {f["flag_key"]: bool(f["enabled"]) for f in self.list_flags()}
+        dependencies = [
+            ("flg_ferrari_centro_stile_canon", "flg_dual_axis_sphere_routing"),
+            ("flg_architect_auto_delegation", "flg_dual_axis_sphere_routing"),
+            ("flg_hot_reload_config_and_rollback", "flg_linear_optimistic_op_log"),
+            ("flg_openapi_31_auto_introspection", "flg_stripe_idempotency_key_lock"),
+        ]
+        violations = []
+        for child, parent in dependencies:
+            if active_flags.get(child, False) and not active_flags.get(parent, False):
+                violations.append({"flag": child, "requires": parent})
+        return {"valid": len(violations) == 0, "violations": violations}
+
+    @staticmethod
+    def paginate_cursor(
+        items: list[dict[str, Any]],
+        id_field: str,
+        starting_after: str | None = None,
+        limit: int = 5,
+    ) -> dict[str, Any]:
+        """Stripe-style cursor pagination over any list of resource dicts."""
+        start_idx = 0
+        if starting_after:
+            for i, item in enumerate(items):
+                if str(item.get(id_field)) == str(starting_after):
+                    start_idx = i + 1
+                    break
+        sliced = items[start_idx : start_idx + limit]
+        has_more = (start_idx + limit) < len(items)
+        next_cursor = str(sliced[-1].get(id_field)) if (sliced and has_more) else None
+        return {
+            "object": "list",
+            "data": sliced,
+            "has_more": has_more,
+            "next_cursor": next_cursor,
+            "total_count": len(items),
+        }
+
     def list_flags(self) -> list[dict[str, Any]]:
         with self._conn() as conn:
             rows = conn.execute(
@@ -401,6 +473,7 @@ class ConfigAndFlagManager:
     def get_full_diagnostics(self) -> dict[str, Any]:
         cfg = self.load_toml_config()
         flags = self.list_flags()
+        dep_check = self.validate_flag_dependencies({f["flag_key"]: bool(f["enabled"]) for f in flags})
         with self._conn() as conn:
             ops_count = conn.execute("SELECT COUNT(*) AS c FROM sync_op_log").fetchone()["c"]
             snaps_count = conn.execute("SELECT COUNT(*) AS c FROM config_snapshots").fetchone()["c"]
@@ -412,6 +485,7 @@ class ConfigAndFlagManager:
             ),
             "flags_total": len(flags),
             "flags_enabled": sum(1 for f in flags if f.get("enabled")),
+            "dependencies_valid": dep_check["valid"],
             "op_log_entries": ops_count,
             "snapshots_saved": snaps_count,
             "flags": flags,
@@ -423,3 +497,4 @@ if __name__ == "__main__":
     res = mgr.sync_flags_from_config()
     snap = mgr.create_epoch_snapshot(20)
     print(json.dumps({"sync": res, "snapshot": snap}, ensure_ascii=False, indent=2))
+
